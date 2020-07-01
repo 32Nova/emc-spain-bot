@@ -217,21 +217,7 @@ client.on("message", async message => {
     await message.reply("Successfully kicked " + member.tag)
   }
 });
-// /type
-client.on("message", message => {
-if (message.content.startsWith("/type") {
-message.channel.startTyping()
-  })
-});
 
-// /untype
-client.on("message", message => {
-if (message.content.startsWith("/untype") {
-message.channel.stopTyping()
-  })
-});
-
-//
 // /ban
 client.on("message", message => {
   if (!message.guild) return;
