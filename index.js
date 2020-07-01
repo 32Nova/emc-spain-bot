@@ -3,7 +3,6 @@ const express = require("express");
 const ms = require("ms");
 const fetch = require("node-fetch");
 const Minesweeper = require("discord.js-minesweeper");
-const glitchyPing = require("glitchy-ping");
 require("events").EventEmitter.prototype._maxListeners = 100;
 const client = new Discord.Client();
 
@@ -218,7 +217,21 @@ client.on("message", async message => {
     await message.reply("Successfully kicked " + member.tag)
   }
 });
+// /type
+client.on("message", message => {
+if (message.content.startsWith("/type") {
+message.channel.startTyping()
+  })
+});
 
+// /untype
+client.on("message", message => {
+if (message.content.startsWith("/untype") {
+message.channel.stopTyping()
+  })
+});
+
+//
 // /ban
 client.on("message", message => {
   if (!message.guild) return;
