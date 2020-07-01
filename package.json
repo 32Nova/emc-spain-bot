@@ -1,0 +1,30 @@
+{
+  "name": "spainbot",
+  "engines": {
+    "node": "12.x"
+  },
+  "version": "1.0.73",
+  "description": "Spain bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@discordjs/opus": "^0.3.2",
+    "discord.js": "^12.2.0",
+    "discord.js-minesweeper": "^1.0.5",
+    "express": "^4.17.1",
+    "express-uws": "^4.0.2",
+    "express-ws": "^4.0.0",
+    "fetch": "^1.1.0",
+    "ffmpeg-static": "^4.2.3",
+    "glitchy-ping": "^0.3.2",
+    "ms": "^2.1.2",
+    "node-fetch": "^2.6.0",
+    "opusscript": "0.0.7",
+    "reaction-role": "^1.7.1",
+    "util": "^0.12.3",
+    "uws": "^100.0.1",
+    "ws": "^7.3.0"
+  }
+}
