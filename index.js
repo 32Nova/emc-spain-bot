@@ -386,6 +386,28 @@ client.on("message", message => {
     message.reply("Pengun");
   }
 });
+
+// /uptime
+client.on("message", message => {
+  if (message.content === "/pengun") {
+    let totalSeconds = (client.uptime / 1000);
+    let days = Math.floor(totalSeconds / 86400);
+    let hours = Math.floor(totalSeconds / 3600);
+    totalSeconds %= 3600;
+    let minutes = Math.floor(totalSeconds / 60);
+    let seconds = Math.floor(totalSeconds % 60);
+    let uptime = `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
+    
+    const uptimeEmbed = new Discord.MessageEmbed()
+      .setColor("#" + Math.floor(Math.random() * 16777215).toString(16))
+      .setTitle("Bot Uptime")
+      .setDescription(uptime)
+      .setTimestamp()
+      .setFooter("Spain bot - Uptime");
+    message.channel.send(uptimeEmbed);
+  }
+});
+
 // /meme
 client.on("message", async message => {
   if (message.content === "/meme") {
@@ -464,11 +486,13 @@ client.on("guildMemberAdd", member => {
   }
 
   if (member.guild.id === "682588388045488143") {
+    var mes = `Welcome to the Spain discord server, ${member.user.tag}! \nWe now have ${member.guild.memberCount} members!`
     var cha = "682672528996827183"
     var img = "https://cdn.discordapp.com/attachments/610055076949524502/661289738463870977/unknown.png"
     var mess = `Welcome ${member.user.tag} ! You are the ${ordinal_suffix_of(i)} member of the server.\nMake sure your nickname on the server is correctly set to IGN | Town | Nation , and go to <#682880298077388812> to enter the server!`
   } else {
     if (member.guild.id === "721804083673169950") {
+      var mes = `Welcome to the discord server of Zaragoza, ${member.user.tag}! \nWe now have ${member.guild.memberCount} members!`
       var cha = "721804083673169953"
       var img = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Zaragoza_%28ciudad%29.svg/1200px-Zaragoza_%28ciudad%29.svg.png"
       var mess = `Welcome ${member.user.tag} ! You are the ${ordinal_suffix_of(i)} member of the server.\nMake sure your nickname on the server is correctly set to IGN | Nation (IGN | Town if you are from Spain), and go to <#721822587016970262> to enter the server!`
@@ -480,7 +504,7 @@ client.on("guildMemberAdd", member => {
       new Discord.MessageEmbed()
         .setColor("#00ff00")
         .setTitle("Someone just joined!")
-        .setDescription(`Welcome to the Spain discord server, ${member.user.tag}! \nWe now have ${member.guild.memberCount} members!`)
+        .setDescription(mes)
     );
   member.send
     (
