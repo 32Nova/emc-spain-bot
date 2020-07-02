@@ -389,7 +389,7 @@ client.on("message", message => {
 
 // /uptime
 client.on("message", message => {
-  if (message.content === "/pengun") {
+  if (message.content === "/uptime") {
     let totalSeconds = (client.uptime / 1000);
     let days = Math.floor(totalSeconds / 86400);
     let hours = Math.floor(totalSeconds / 3600);
