@@ -213,7 +213,7 @@ client.on("message", async message => {
 
     var member = message.guild.member(message.mentions.users.first())
     if (!member) return message.reply("Couldn't find that user!")
-    member.kick("Kicked by " + message.author.tag + " using France bot.").catch(console.error)
+    member.kick("Kicked by " + message.author.tag + " using Spain bot.").catch(console.error)
     await message.reply("Successfully kicked " + member.tag)
   }
 });
@@ -231,7 +231,7 @@ client.on("message", message => {
         member
           .ban({
             reason:
-              "Banned by " + message.member.user.tag + " using France bot "
+              "Banned by " + message.member.user.tag + " using Spain bot "
           })
           .then(() => {
             message.reply(`Successfully banned ${user.tag}`);
@@ -496,7 +496,14 @@ client.on("guildMemberAdd", member => {
       var cha = "721804083673169953"
       var img = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Zaragoza_%28ciudad%29.svg/1200px-Zaragoza_%28ciudad%29.svg.png"
       var mess = `Welcome ${member.user.tag} ! You are the ${ordinal_suffix_of(i)} member of the server.\nMake sure your nickname on the server is correctly set to IGN | Nation (IGN | Town if you are from Spain), and go to <#721822587016970262> to enter the server!`
-    } else { }
+    } else { 
+        if (member.guild.id === "660249363301269506") {
+        var mes = `Welcome to the discord server of Cáceres, ${member.user.tag}! \nWe now have ${member.guild.memberCount} members!`
+       var cha = "660249363884408834"
+       var img = "https://media.discordapp.net/attachments/667790176184958976/728565817179897887/06ff892a53fb0cc2752b65639189b18d.png"
+       var mess = `Welcome ${member.user.tag} ! You are the ${ordinal_suffix_of(i)} member of the server.`
+    } else { } 
+    }
   }
 
   member.guild.channels.cache.get(cha).send
@@ -525,7 +532,7 @@ client.on("guildMemberRemove", member => {
     `${member.user.tag} wasn't enough epic to stay here`,
     `${member.user.tag} litteraly left the server!`,
     `${member.user.tag} was probably ggovi :flushed:`,
-    `${member.user.tag} left. How rude!`,
+    `${member.user.tag} left. How rude!`
   ];
 
   if (member.guild.id === "682588388045488143") {
@@ -533,7 +540,11 @@ client.on("guildMemberRemove", member => {
   } else {
     if (member.guild.id === "721804083673169950") {
       var cha = "721804083673169953"
-    } else { }
+    } else { 
+      if (member.guild.id === "660249363301269506") {
+      var cha = "660249363884408834"
+    } else { } 
+    }
   }
 
   member.guild.channels.cache.get(cha).send
