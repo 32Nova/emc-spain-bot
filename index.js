@@ -448,6 +448,22 @@ client.on("message", message => {
   }
 });
 
+// /je-e
+client.on("message", message => {
+  if (message.content === "/je-e") {
+    const video = "https://cdn.discordapp.com/attachments/667790176184958976/735123101788012654/je_e_1.mp4"
+    message.reply("JE E", {files: [video]})
+  }
+});
+
+// /je-e-2
+client.on("message", message => {
+  if (message.content === "/je-e-2") {
+    const video = "https://cdn.discordapp.com/attachments/570574758522126366/735211522434924676/Jee.mp4"
+    message.reply("JE E", {files: [video]})
+  }
+});
+
 // /birb
 client.on("message", async message => {
   if (message.content === "/birb") {
