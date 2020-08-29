@@ -23,14 +23,18 @@ function randomColor() {
 client.on("ready", async () => {
   console.log(`Logged in as ${client.user.tag}!`);
   var startEmbed = new Discord.MessageEmbed()
-  .setTitle("Bot started !")
-  .setColor("#00FF00")
-  .setDescription("Spain Bot has successfully started up.")
-  .addFields(
-    { name: 'Start date (Unix)', value: Date.now(), inline: true },
-		{ name: 'Start date', value: moment().format("DD/MM/YYYY - HH:mm:ss [UTC ]Z"), inline: true },
-  )
-  .setFooter("Spain bot");
+    .setTitle("Bot started !")
+    .setColor("#00FF00")
+    .setDescription("Spain Bot has successfully started up.")
+    .addFields(
+      { name: "Start date (Unix)", value: Date.now(), inline: true },
+      {
+        name: "Start date",
+        value: moment().format("DD/MM/YYYY - HH:mm:ss [UTC ]Z"),
+        inline: true,
+      }
+    )
+    .setFooter("Spain bot");
 
   client.channels.cache.get("722516636350808076").send(startEmbed);
 
@@ -78,6 +82,49 @@ client.on("message", (message) => {
     message.channel.send("Restarting...").then(() => {
       process.exit(1);
     });
+  }
+});
+
+// /ping
+client.on("message", (message) => {
+  if (message.content.startsWith("/ping")) {
+    var pinginac = Date.now() - message.createdTimestamp;
+
+    var ping = client.ws.ping;
+
+    if (ping < 9999999) {
+      var pingc = "#000000";
+    }
+    if (ping < 5000) {
+      var pingc = "#440000";
+    }
+    if (ping < 2000) {
+      var pingc = "#770000";
+    }
+    if (ping < 1000) {
+      var pingc = "#FF0000";
+    }
+    if (ping < 500) {
+      var pingc = "#FF9900";
+    }
+    if (ping < 200) {
+      var pingc = "#FFFF00";
+    }
+    if (ping < 70) {
+      var pingc = "#55FF00";
+    }
+    if (ping < 20) {
+      var pingc = "#00FF00";
+    }
+
+    pingEmbed = new Discord.MessageEmbed()
+      .setTitle("Ping")
+      .setColor(pingc)
+      .setDescription(`Latency : ${pinginac}ms\nAPI : ${ping}ms`)
+      .setFooter("Pong")
+      .setTimestamp();
+
+    message.channel.send(pingEmbed);
   }
 });
 
