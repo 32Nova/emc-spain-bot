@@ -85,12 +85,57 @@ client.on("message", (message) => {
   }
 });
 
+// /status
+client.on("message", (message) => {
+  if (message.content.startsWith("/status")) {
+    var latency = Date.now() - message.createdTimestamp; // Latency
+    var pingapi = client.ws.ping; // API ping
+    var usedramB = process.memoryUsage().heapUsed; // Used RAM
+    var maxramB = process.memoryUsage().rss; // Max RAM
+    // Uptime
+    let utotalSeconds = client.uptime / 1000;
+    let udays = Math.floor(utotalSeconds / 86400);
+    let uhours = Math.floor(utotalSeconds / 3600);
+    utotalSeconds %= 3600;
+    let uminutes = Math.floor(utotalSeconds / 60);
+    let useconds = Math.floor(utotalSeconds % 60);
+    let uptime = `${udays} days, ${uhours} hours, ${uminutes} minutes and ${useconds} seconds`;
+    // Uptime end
+    var version = "1.3";
+    var build = "11";
+
+    const statusEmbed = new Discord.MessageEmbed()
+      .setTitle("Status")
+      .setColor(randomColor())
+      .setDescription(
+        `Current bot status, ${moment().format(
+          "DD/MM/YYYY - HH:mm:ss [UTC ]Z"
+        )}\nVersion ${version} build ${build}`
+      )
+      .addFields(
+        { name: "Latency", value: `${latency}ms` },
+        { name: "API ping", value: `${pingapi}ms` },
+        {
+          name: "RAM",
+          value: `${
+            Math.round((usedramB / 1024 / 1024 + Number.EPSILON) * 100) / 100
+          } MB / ${
+            Math.round((maxramB / 1024 / 1024 + Number.EPSILON) * 100) / 100
+          } MB`,
+        },
+        { name: "Uptime", value: `${uptime}` }
+      )
+      .setFooter("Spain bot - /status");
+    message.channel.send(statusEmbed);
+  }
+});
+
 // /ping
 client.on("message", (message) => {
   if (message.content.startsWith("/ping")) {
-    var pinginac = Date.now() - message.createdTimestamp;
+    var ping = Date.now() - message.createdTimestamp;
 
-    var ping = client.ws.ping;
+    var pingapi = client.ws.ping;
 
     if (ping < 9999999) {
       var pingc = "#000000";
@@ -120,7 +165,7 @@ client.on("message", (message) => {
     pingEmbed = new Discord.MessageEmbed()
       .setTitle("Ping")
       .setColor(pingc)
-      .setDescription(`Latency : ${pinginac}ms\nAPI : ${ping}ms`)
+      .setDescription(`Latency : ${ping}ms\nAPI : ${pingapi}ms`)
       .setFooter("Pong")
       .setTimestamp();
 
