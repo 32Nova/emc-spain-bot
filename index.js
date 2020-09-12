@@ -629,6 +629,7 @@ client.login("NjYzODY4ODQyODIwNTAxNTUz.Xvtw_g.m1bVaAGOubjdlwRZ8cReeb3LFcM");
 
 // Someone joins the server
 client.on("guildMemberAdd", (member) => {
+  var ran = console.log(Math.floor(Math.random()*4096));
   var i = client.guilds.cache.get(member.guild.id).memberCount;
   function ordinal_suffix_of(i) {
     var j = i % 10,
@@ -646,6 +647,7 @@ client.on("guildMemberAdd", (member) => {
   }
 
   if (member.guild.id === "682588388045488143") {
+    var raremes = `monkey to the monkey discord monkey, ${member.user.tag}! \nWe now monkey ${member.guild.memberCount} monkey!\n\n:flushed:`;
     var mes = `Welcome to the Spain discord server, ${member.user.tag}! \nWe now have ${member.guild.memberCount} members!`;
     var cha = "682672528996827183";
     var img =
@@ -655,6 +657,7 @@ client.on("guildMemberAdd", (member) => {
     )} member of the server.\nMake sure your nickname on the server is correctly set to IGN | Town | Nation , and go to <#682880298077388812> to enter the server!`;
   } else {
     if (member.guild.id === "721804083673169950") {
+      var raremes = `monkey to the monkey discord monkey, ${member.user.tag}! \nWe now monkey ${member.guild.memberCount} monkey!\n\n:flushed:`;
       var mes = `Welcome to the discord server of Zaragoza, ${member.user.tag}! \nWe now have ${member.guild.memberCount} members!`;
       var cha = "721804083673169953";
       var img =
@@ -664,6 +667,7 @@ client.on("guildMemberAdd", (member) => {
       )} member of the server.\nMake sure your nickname on the server is correctly set to IGN | Nation (IGN | Town if you are from Spain), and go to <#721822587016970262> to enter the server!`;
     } else {
       if (member.guild.id === "660249363301269506") {
+        var raremes = `monkey to the monkey discord monkey, ${member.user.tag}! \nWe now monkey ${member.guild.memberCount} monkey!\n\n:flushed:`;
         var mes = `Welcome to the discord server of Cáceres, ${member.user.tag}! \nWe now have ${member.guild.memberCount} members!`;
         var cha = "660249363884408834";
         var img =
@@ -676,14 +680,21 @@ client.on("guildMemberAdd", (member) => {
     }
   }
 
+  if (ran == 69) {
+    var fmes = raremes
+  } else {
+    var fmes = mes
+  };
+
   member.guild.channels.cache
     .get(cha)
     .send(
       new Discord.MessageEmbed()
         .setColor("#00ff00")
         .setTitle("Someone just joined!")
-        .setDescription(mes)
+        .setDescription(fmes)
     );
+
   member.send(
     new Discord.MessageEmbed()
       .setColor(randomColor())
