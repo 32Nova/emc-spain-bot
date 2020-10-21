@@ -101,8 +101,8 @@ client.on("message", (message) => {
     let useconds = Math.floor(utotalSeconds % 60);
     let uptime = `${udays} days, ${uhours} hours, ${uminutes} minutes and ${useconds} seconds`;
     // Uptime end
-    var version = "1.3";
-    var build = "11";
+    var version = "1.3b";
+    var build = "12";
 
     const statusEmbed = new Discord.MessageEmbed()
       .setTitle("Status")
@@ -182,7 +182,7 @@ client.on("message", async (message) => {
       .setTitle("Spain bot | List of commands")
       .setColor(randomColor())
       .setDescription(
-        "**MISC**\n`/help`, `/cmds` : Shows this message\n`/uptime` : Check out the bot's uptime\n`/minesweeper <rows> <columns> <lines>` : Play some minesweeper\n`/howgay <user>` : Check the gayness of someone\n`/pengun` : Pengun\n`/meme` : Get a random popular meme from reddit\n`/embed <message>` : Converts your message to a pretty embed\n`/je-e`, `je-e-2` : JE E\n`/cat` : cat\n`/self-destruct` : Makes the bot destroy itself\n`/birb` : Get a random bird image\n\n**MODERATION**\n`/kick <user>` : Kicks the specified user\n`/ban <user>` : Bans the specified user\n`/mute <user>` : Mutes the specified user\n`/unmute <user>` : Unmutes the specified user\n`/purge <amount>` : Deletes the specified amount of messages in the current channel"
+        "**MISC**\n`/help`, `/cmds` : Shows this message\n`/uptime` : Check out the bot's uptime\n`/status` : Displays the bot's RAM usage, ping, uptime\n`/minesweeper <rows> <columns> <lines>` : Play some minesweeper\n`/howgay <user>` : Check the gayness of someone\n`/pengun` : Pengun\n`/meme` : Get a random popular meme from reddit\n`/embed <message>` : Converts your message to a pretty embed\n`/je-e`, `je-e-2` : JE E\n`/cat` : cat\n`/self-destruct` : Makes the bot destroy itself\n`/birb` : Get a random bird image\n\n**MODERATION**\n`/kick <user>` : Kicks the specified user\n`/ban <user>` : Bans the specified user\n`/mute <user>` : Mutes the specified user\n`/unmute <user>` : Unmutes the specified user\n`/purge <amount>` : Deletes the specified amount of messages in the current channel"
       )
       .setTimestamp()
       .setFooter("Spain bot - May vary depending of server");
