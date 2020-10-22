@@ -48,11 +48,15 @@ client.on("ready", async () => {
   setInterval(async () => {
     const activities = [
       `/n spawn Spain`,
-      `Viva Espana !`,
+      `Viva España !`,
       `${client.users.cache.size} Members`,
       `Spain Epic!`,
       `Spain gang`,
       `Join Spain!`,
+      `Iberia gang`,
+      `Portugay 👎`,
+      `Huevo`,
+      `Feel the epicness`,
     ];
     const activity = activities[Math.floor(Math.random() * activities.length)];
     await client.user.setActivity(activity, { type: "WATCHING" });
@@ -101,8 +105,8 @@ client.on("message", (message) => {
     let useconds = Math.floor(utotalSeconds % 60);
     let uptime = `${udays} days, ${uhours} hours, ${uminutes} minutes and ${useconds} seconds`;
     // Uptime end
-    var version = "1.3b";
-    var build = "12";
+    var version = "1.4";
+    var build = "13";
 
     const statusEmbed = new Discord.MessageEmbed()
       .setTitle("Status")
@@ -127,6 +131,48 @@ client.on("message", (message) => {
       )
       .setFooter("Spain bot - /status");
     message.channel.send(statusEmbed);
+  }
+});
+
+// /spain-download
+client.on("message", async (message) => {
+  if (message.content.startsWith("/spain-download"));
+
+  const args = message.content.slice(15).trim().split(" ");
+
+  if (!args.length) {
+    return message.reply(
+      `Please specify the map version (type latest for the more recent map).\nAviable versions : 1`
+    );
+  }
+
+  if (args[0] === "latest" || args[0] === "1") {
+    var fieldtext = [
+      "20 August 2020",
+      "216 Mo",
+      "1",
+      "[Google Drive](https://drive.google.com/file/d/1Ms87ZB-_5oA5ShWIM1QU9heyPI4rZlZr/view?usp=sharing)",
+    ];
+  } else {
+    message.reply("Invalid version !nAviable versions : latest, 1");
+  }
+
+  {
+    const dlEmbed = new Discord.MessageEmbed()
+      .setTitle("Spain World Download")
+      .setColor(randomColor())
+      .setDescription(
+        "You can download here the Spain map to play it in singleplayer with creative mode.\nPlease do not share the map with outsiders. This is only for nation members :flag_es:"
+      )
+      .addFields(
+        { name: "Date of the map", value: fieldtext[0] },
+        { name: "Size", value: fieldtext[1] },
+        { name: "Map number", value: fieldtext[2] },
+        { name: "Download link", value: fieldtext[3] }
+      )
+      .setTimestamp()
+      .setFooter("Spain bot - World Download");
+    message.channel.send(dlEmbed);
   }
 });
 
@@ -629,7 +675,7 @@ client.login("NjYzODY4ODQyODIwNTAxNTUz.Xvtw_g.m1bVaAGOubjdlwRZ8cReeb3LFcM");
 
 // Someone joins the server
 client.on("guildMemberAdd", (member) => {
-  var ran = console.log(Math.floor(Math.random()*4096));
+  var ran = console.log(Math.floor(Math.random() * 4096));
   var i = client.guilds.cache.get(member.guild.id).memberCount;
   function ordinal_suffix_of(i) {
     var j = i % 10,
@@ -681,10 +727,10 @@ client.on("guildMemberAdd", (member) => {
   }
 
   if (ran == 69) {
-    var fmes = raremes
+    var fmes = raremes;
   } else {
-    var fmes = mes
-  };
+    var fmes = mes;
+  }
 
   member.guild.channels.cache
     .get(cha)
