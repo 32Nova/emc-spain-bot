@@ -105,8 +105,8 @@ client.on("message", (message) => {
     let useconds = Math.floor(utotalSeconds % 60);
     let uptime = `${udays} days, ${uhours} hours, ${uminutes} minutes and ${useconds} seconds`;
     // Uptime end
-    var version = "1.4";
-    var build = "13";
+    var version = "1.4b";
+    var build = "14";
 
     const statusEmbed = new Discord.MessageEmbed()
       .setTitle("Status")
@@ -741,6 +741,8 @@ client.on("guildMemberAdd", (member) => {
         .setDescription(fmes)
     );
 
+
+  /* Disabled
   member.send(
     new Discord.MessageEmbed()
       .setColor(randomColor())
@@ -750,6 +752,7 @@ client.on("guildMemberAdd", (member) => {
       .setTimestamp()
       .setImage(img)
   );
+  */
 });
 // Someone leaves the server
 client.on("guildMemberRemove", (member) => {
