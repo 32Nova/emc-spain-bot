@@ -142,7 +142,7 @@ client.on("message", async (message) => {
 
   if (!args.length) {
     return message.reply(
-      `Please specify the map version (type latest for the more recent map).\nAviable versions : 1`
+      `Please specify the map version (type latest for the more recent map).\nAvailable versions : 1`
     );
   }
 
@@ -154,7 +154,7 @@ client.on("message", async (message) => {
       "[Google Drive](https://drive.google.com/file/d/1Ms87ZB-_5oA5ShWIM1QU9heyPI4rZlZr/view?usp=sharing)",
     ];
   } else {
-    message.reply("Invalid version !nAviable versions : latest, 1");
+    message.reply("Invalid version \nAvailable versions : latest, 1");
     const dlEmbed = new Discord.MessageEmbed()
       .setTitle("Spain World Download")
       .setColor(randomColor())
