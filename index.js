@@ -153,8 +153,7 @@ client.on("message", async (message) => {
       "1",
       "[Google Drive](https://drive.google.com/file/d/1Ms87ZB-_5oA5ShWIM1QU9heyPI4rZlZr/view?usp=sharing)",
     ];
-  } else {
-    message.reply("Invalid version \nAvailable versions : latest, 1");
+    
     const dlEmbed = new Discord.MessageEmbed()
       .setTitle("Spain World Download")
       .setColor(randomColor())
@@ -170,6 +169,9 @@ client.on("message", async (message) => {
       .setTimestamp()
       .setFooter("Spain bot - World Download");
     message.channel.send(dlEmbed);
+
+  } else {
+    message.reply("Invalid version \nAvailable versions : latest, 1");
    }
   }
 });
