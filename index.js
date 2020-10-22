@@ -134,47 +134,7 @@ client.on("message", (message) => {
   }
 });
 
-// /spain-download
-client.on("message", async (message) => {
-  if (message.content.startsWith("/spain-download"));
-
-  const args = message.content.slice(15).trim().split(" ");
-
-  if (!args.length) {
-    return message.reply(
-      `Please specify the map version (type latest for the more recent map).\nAviable versions : 1`
-    );
-  }
-
-  if (args[0] === "latest" || args[0] === "1") {
-    var fieldtext = [
-      "20 August 2020",
-      "216 Mo",
-      "1",
-      "[Google Drive](https://drive.google.com/file/d/1Ms87ZB-_5oA5ShWIM1QU9heyPI4rZlZr/view?usp=sharing)",
-    ];
-  } else {
-    message.reply("Invalid version !nAviable versions : latest, 1");
-  }
-
-  {
-    const dlEmbed = new Discord.MessageEmbed()
-      .setTitle("Spain World Download")
-      .setColor(randomColor())
-      .setDescription(
-        "You can download here the Spain map to play it in singleplayer with creative mode.\nPlease do not share the map with outsiders. This is only for nation members :flag_es:"
-      )
-      .addFields(
-        { name: "Date of the map", value: fieldtext[0] },
-        { name: "Size", value: fieldtext[1] },
-        { name: "Map number", value: fieldtext[2] },
-        { name: "Download link", value: fieldtext[3] }
-      )
-      .setTimestamp()
-      .setFooter("Spain bot - World Download");
-    message.channel.send(dlEmbed);
-  }
-});
+/
 
 // /ping
 client.on("message", (message) => {
