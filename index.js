@@ -671,8 +671,6 @@ client.on("message", async (message) => {
   }
 });
 
-client.login("NjYzODY4ODQyODIwNTAxNTUz.Xvtw_g.m1bVaAGOubjdlwRZ8cReeb3LFcM");
-
 // Someone joins the server
 client.on("guildMemberAdd", (member) => {
   var ran = console.log(Math.floor(Math.random() * 4096));
@@ -790,3 +788,9 @@ client.on("guildMemberRemove", (member) => {
       .setTimestamp()
   );
 });
+
+
+
+
+
+client.login(process.env.TOKEN);
