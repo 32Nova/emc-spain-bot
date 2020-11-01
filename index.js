@@ -4,6 +4,9 @@ const ms = require("ms");
 const fetch = require("node-fetch");
 const Minesweeper = require("discord.js-minesweeper");
 const moment = require("moment");
+const cheerio = require("cheerio");
+const got = require("got");
+const { stringify } = require("querystring");
 require("events").EventEmitter.prototype._maxListeners = 100;
 const client = new Discord.Client();
 
@@ -105,8 +108,8 @@ client.on("message", (message) => {
     let useconds = Math.floor(utotalSeconds % 60);
     let uptime = `${udays} days, ${uhours} hours, ${uminutes} minutes and ${useconds} seconds`;
     // Uptime end
-    var version = "1.4b";
-    var build = "14";
+    var version = "1.5";
+    var build = "15";
 
     const statusEmbed = new Discord.MessageEmbed()
       .setTitle("Status")
@@ -137,42 +140,40 @@ client.on("message", (message) => {
 // /spain-download
 client.on("message", async (message) => {
   if (message.content.startsWith("/spain-download")) {
+    const args = message.content.slice(15).trim().split(" ");
 
-  const args = message.content.slice(15).trim().split(" ");
+    if (!args.length) {
+      return message.reply(
+        `Please specify the map version (type latest for the more recent map).\nAvailable versions : 1`
+      );
+    }
 
-  if (!args.length) {
-    return message.reply(
-      `Please specify the map version (type latest for the more recent map).\nAvailable versions : 1`
-    );
-  }
+    if (args[0] === "latest" || args[0] === "1") {
+      var fieldtext = [
+        "20 August 2020",
+        "216 Mo",
+        "1",
+        "[Google Drive](https://drive.google.com/file/d/1Ms87ZB-_5oA5ShWIM1QU9heyPI4rZlZr/view?usp=sharing)",
+      ];
 
-  if (args[0] === "latest" || args[0] === "1") {
-    var fieldtext = [
-      "20 August 2020",
-      "216 Mo",
-      "1",
-      "[Google Drive](https://drive.google.com/file/d/1Ms87ZB-_5oA5ShWIM1QU9heyPI4rZlZr/view?usp=sharing)",
-    ];
-    
-    const dlEmbed = new Discord.MessageEmbed()
-      .setTitle("Spain World Download")
-      .setColor(randomColor())
-      .setDescription(
-        "You can download here the Spain map to play it in singleplayer with creative mode.\nPlease do not share the map with outsiders. This is only for nation members :flag_es:"
-      )
-      .addFields(
-        { name: "Date of the map", value: fieldtext[0] },
-        { name: "Size", value: fieldtext[1] },
-        { name: "Map number", value: fieldtext[2] },
-        { name: "Download link", value: fieldtext[3] }
-      )
-      .setTimestamp()
-      .setFooter("Spain bot - World Download");
-    message.channel.send(dlEmbed);
-
-  } else {
-    message.reply("Invalid version \nAvailable versions : latest, 1");
-   }
+      const dlEmbed = new Discord.MessageEmbed()
+        .setTitle("Spain World Download")
+        .setColor(randomColor())
+        .setDescription(
+          "You can download here the Spain map to play it in singleplayer with creative mode.\nPlease do not share the map with outsiders. This is only for nation members :flag_es:"
+        )
+        .addFields(
+          { name: "Date of the map", value: fieldtext[0] },
+          { name: "Size", value: fieldtext[1] },
+          { name: "Map number", value: fieldtext[2] },
+          { name: "Download link", value: fieldtext[3] }
+        )
+        .setTimestamp()
+        .setFooter("Spain bot - World Download");
+      message.channel.send(dlEmbed);
+    } else {
+      message.reply("Invalid version \nAvailable versions : latest, 1");
+    }
   }
 });
 
@@ -543,6 +544,90 @@ client.on("message", (message) => {
   }
 });
 
+// /google
+
+client.on("message", async (message) => {
+  if (message.content.toLowerCase().startsWith("/google")) {
+    var args = message.content.split(" ").slice(1);
+
+    if (args.length < 1)
+      message.reply("Please specify what do i need to search");
+
+    await message.channel
+      .send("Searching...")
+      .then((msg) => {
+        msg.delete(1000);
+      });
+
+    const params = {
+      q: args.join(" "),
+      safe: "on",
+      lr: "lang_en",
+      hl: "en",
+    };
+
+    let resp = await got("https://google.com/search?" + stringify(params), {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 6.3; Win64; x64) Gecko/20100101 Firefox/53.0",
+      },
+    });
+
+    if (resp.statusCode !== 200) throw `Problem when searching : status code ${resp.statusCode}`;
+
+    const $ = cheerio.load(resp.body);
+
+    const results = [];
+
+    let card = null;
+
+    const cardNode = $("div#rso > div._NId").find(
+      "div.vk_c, div.g.mnr-c.g-blk, div.kp-blk"
+    );
+
+    if (cardNode && cardNode.length !== 0) {
+      card = this.parseCards($, cardNode);
+    }
+
+    $(".rc > h3 > a").each((i, e) => {
+      const link = $(e).attr("href");
+      const text = $(e).text();
+      if (link) {
+        results.push({ text, link });
+      }
+    });
+
+    if (card) {
+      const value = results
+        .slice(0, 3)
+        .map((r) => `[${r.text}](${r.link})`)
+        .join("\n");
+      if (value) {
+        card
+          .addField(`This is what i also found for: "${params.q}" `, value)
+          .setColor(randomColor())
+          .setURL(
+            `https://google.com/search?q=${encodeURIComponent(params.q)}`
+          );
+      }
+      return await msg.channel.send(card);
+    }
+
+    if (results.length === 0) {
+      return await msg.channel.send("Sorry, I didn't found any results");
+    }
+
+    const firstentry = `${results[0].link}`;
+    const resultxD = results
+      .slice(0, 1)
+      .map((r) => `${r.link}`)
+      .join("\n");
+
+    await msg.channel.send(resultxD);
+  }
+});
+
+
 // /howgay
 client.on("message", (message) => {
   if (message.content.startsWith("/howgay")) {
@@ -739,7 +824,6 @@ client.on("guildMemberAdd", (member) => {
         .setDescription(fmes)
     );
 
-
   /* Disabled
   member.send(
     new Discord.MessageEmbed()
@@ -788,9 +872,5 @@ client.on("guildMemberRemove", (member) => {
       .setTimestamp()
   );
 });
-
-
-
-
 
 client.login(process.env.TOKEN);
