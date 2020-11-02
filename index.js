@@ -4,9 +4,6 @@ const ms = require("ms");
 const fetch = require("node-fetch");
 const Minesweeper = require("discord.js-minesweeper");
 const moment = require("moment");
-const cheerio = require("cheerio");
-const got = require("got");
-const { stringify } = require("querystring");
 require("events").EventEmitter.prototype._maxListeners = 100;
 const client = new Discord.Client();
 
@@ -544,90 +541,6 @@ client.on("message", (message) => {
   }
 });
 
-// /google
-
-client.on("message", async (message) => {
-  if (message.content.toLowerCase().startsWith("/google")) {
-    var args = message.content.split(" ").slice(1);
-
-    if (args.length < 1)
-      message.reply("Please specify what do i need to search");
-
-    await message.channel
-      .send("Searching...")
-      .then((msg) => {
-        msg.delete(1000);
-      });
-
-    const params = {
-      q: args.join(" "),
-      safe: "on",
-      lr: "lang_en",
-      hl: "en",
-    };
-
-    let resp = await got("https://google.com/search?" + stringify(params), {
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 6.3; Win64; x64) Gecko/20100101 Firefox/53.0",
-      },
-    });
-
-    if (resp.statusCode !== 200) throw `Problem when searching : status code ${resp.statusCode}`;
-
-    const $ = cheerio.load(resp.body);
-
-    const results = [];
-
-    let card = null;
-
-    const cardNode = $("div#rso > div._NId").find(
-      "div.vk_c, div.g.mnr-c.g-blk, div.kp-blk"
-    );
-
-    if (cardNode && cardNode.length !== 0) {
-      card = this.parseCards($, cardNode);
-    }
-
-    $(".rc > h3 > a").each((i, e) => {
-      const link = $(e).attr("href");
-      const text = $(e).text();
-      if (link) {
-        results.push({ text, link });
-      }
-    });
-
-    if (card) {
-      const value = results
-        .slice(0, 3)
-        .map((r) => `[${r.text}](${r.link})`)
-        .join("\n");
-      if (value) {
-        card
-          .addField(`This is what i also found for: "${params.q}" `, value)
-          .setColor(randomColor())
-          .setURL(
-            `https://google.com/search?q=${encodeURIComponent(params.q)}`
-          );
-      }
-      return await msg.channel.send(card);
-    }
-
-    if (results.length === 0) {
-      return await msg.channel.send("Sorry, I didn't found any results");
-    }
-
-    const firstentry = `${results[0].link}`;
-    const resultxD = results
-      .slice(0, 1)
-      .map((r) => `${r.link}`)
-      .join("\n");
-
-    await msg.channel.send(resultxD);
-  }
-});
-
-
 // /howgay
 client.on("message", (message) => {
   if (message.content.startsWith("/howgay")) {
@@ -873,4 +786,4 @@ client.on("guildMemberRemove", (member) => {
   );
 });
 
-client.login(process.env.TOKEN);
+client.login("NjYzODY4ODQyODIwNTAxNTUz.XhOyCg.hod0hc8Sknp6VL2Gf8okSgN1RA8");
