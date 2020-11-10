@@ -105,8 +105,8 @@ client.on("message", (message) => {
     let useconds = Math.floor(utotalSeconds % 60);
     let uptime = `${udays} days, ${uhours} hours, ${uminutes} minutes and ${useconds} seconds`;
     // Uptime end
-    var version = "1.5";
-    var build = "15";
+    var version = "1.5b";
+    var build = "16";
 
     const statusEmbed = new Discord.MessageEmbed()
       .setTitle("Status")
@@ -758,6 +758,16 @@ client.on("guildMemberRemove", (member) => {
     `${member.user.tag} litteraly left the server!`,
     `${member.user.tag} was probably ggovi :flushed:`,
     `${member.user.tag} left. How rude!`,
+    `${member.user.tag} is gone.`,
+    `${member.user.tag} is no more.`,
+    `${member.user.tag} saw something cringe`,
+    `${member.user.tag} smelled portguese farts :flushed:`,
+    `${member.user.tag} took a crap`,
+    `${member.user.tag} had to go.`,
+    `${member.user.tag} was late for school`,
+    `${member.user.tag} couldn't take it anymore`,
+    `${member.user.tag} was not wholesome 100 keanu chungus reddit`,
+    `${member.user.tag} was an Imposter. 0 Imposters remain.`,
   ];
 
   if (member.guild.id === "682588388045488143") {
@@ -786,4 +796,5 @@ client.on("guildMemberRemove", (member) => {
   );
 });
 
+// Login token
 client.login("NjYzODY4ODQyODIwNTAxNTUz.XhOyCg.hod0hc8Sknp6VL2Gf8okSgN1RA8");
