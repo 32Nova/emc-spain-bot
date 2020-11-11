@@ -89,6 +89,22 @@ client.on("message", (message) => {
   }
 });
 
+// Anti ad
+client.on("message", (message) => {
+  if (
+    message.content.includes("discord.gg/") ||
+    message.content.includes("discordapp.com/invite/")
+  ) {
+    if (
+      !message.member.roles.cache.find((r) => r.id === "682667013444993024") && message.guild.id == "682588388045488143"
+    ) {
+      message.delete();
+      message.reply("no ads :smiling_imp:");
+    }
+  } else {
+  }
+});
+
 // /status
 client.on("message", (message) => {
   if (message.content.startsWith("/status")) {
@@ -105,8 +121,8 @@ client.on("message", (message) => {
     let useconds = Math.floor(utotalSeconds % 60);
     let uptime = `${udays} days, ${uhours} hours, ${uminutes} minutes and ${useconds} seconds`;
     // Uptime end
-    var version = "1.5b";
-    var build = "16";
+    var version = "1.5.2";
+    var build = "17";
 
     const statusEmbed = new Discord.MessageEmbed()
       .setTitle("Status")
