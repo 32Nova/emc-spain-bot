@@ -96,7 +96,8 @@ client.on("message", (message) => {
     message.content.includes("discordapp.com/invite/")
   ) {
     if (
-      !message.member.roles.cache.find((r) => r.id === "682667013444993024") && message.guild.id == "682588388045488143"
+      !message.member.roles.cache.find((r) => r.id === "682667013444993024") &&
+      message.guild.id == "682588388045488143"
     ) {
       message.delete();
       message.reply("no ads :smiling_imp:");
@@ -161,7 +162,7 @@ client.on("message", async (message) => {
       );
     }
 
-    if (args[0] === "latest" || args[0] === "1") {
+    if (args[0] === "1") {
       var fieldtext = [
         "20 August 2020",
         "216 Mo",
@@ -185,7 +186,32 @@ client.on("message", async (message) => {
         .setFooter("Spain bot - World Download");
       message.channel.send(dlEmbed);
     } else {
-      message.reply("Invalid version \nAvailable versions : latest, 1");
+      if (args[0] === "latest" || args[0] === "2") {
+        var fieldtext = [
+          "20 December 2020",
+          "99 Mo",
+          "2 - Partially updated",
+          "[Google Drive](https://drive.google.com/file/d/1CMEl5TFeORWRcdaLvx9SQ6KZ7nOXsAnG/view?usp=sharing)",
+        ];
+
+        const dlEmbed = new Discord.MessageEmbed()
+          .setTitle("Spain World Download")
+          .setColor(randomColor())
+          .setDescription(
+            "You can download here the Spain map to play it in singleplayer with creative mode.\nPlease do not share the map with outsiders. This is only for nation members :flag_es:\nNote that this version is PARTIAL - everything was not updated - Only updated Valencia, Porto, Madrid and a bit of wilderness"
+          )
+          .addFields(
+            { name: "Date of the map", value: fieldtext[0] },
+            { name: "Size", value: fieldtext[1] },
+            { name: "Map number", value: fieldtext[2] },
+            { name: "Download link", value: fieldtext[3] }
+          )
+          .setTimestamp()
+          .setFooter("Spain bot - World Download");
+        message.channel.send(dlEmbed);
+      } else {
+        message.reply("Invalid version \nAvailable versions : latest, 1, 2");
+      }
     }
   }
 });
