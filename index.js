@@ -122,8 +122,8 @@ client.on("message", (message) => {
     let useconds = Math.floor(utotalSeconds % 60);
     let uptime = `${udays} days, ${uhours} hours, ${uminutes} minutes and ${useconds} seconds`;
     // Uptime end
-    var version = "1.6";
-    var build = "18";
+    var version = "1.6.1";
+    var build = "19";
 
     const statusEmbed = new Discord.MessageEmbed()
       .setTitle("Status")
@@ -601,10 +601,21 @@ client.on("message", (message) => {
 });
 // /cat
 client.on("message", (message) => {
-  if (message.content === "/cat") {
+  if (message.content.startsWith("/cat")) {
     message.reply("Cat ", {
       files: [
         "https://media.discordapp.net/attachments/313329522332139522/655471787102044260/cat.gif",
+      ],
+    });
+  }
+});
+
+// /valencia-map
+client.on("message", (message) => {
+  if (message.content.startsWith("/valencia-map")) {
+    message.channel.send("", {
+      files: [
+        "https://media.discordapp.net/attachments/667790176184958976/793625319940030464/VALENCIA-ROADMAP-1.png",
       ],
     });
   }
