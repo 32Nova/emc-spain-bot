@@ -186,7 +186,7 @@ client.on("message", async (message) => {
         .setFooter("Spain bot - World Download");
       message.channel.send(dlEmbed);
     } else {
-      if (args[0] === "latest" || args[0] === "2") {
+      if (args[0] === "2") {
         var fieldtext = [
           "20 December 2020",
           "99 Mo",
