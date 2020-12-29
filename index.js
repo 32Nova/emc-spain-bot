@@ -122,8 +122,8 @@ client.on("message", (message) => {
     let useconds = Math.floor(utotalSeconds % 60);
     let uptime = `${udays} days, ${uhours} hours, ${uminutes} minutes and ${useconds} seconds`;
     // Uptime end
-    var version = "1.5.2";
-    var build = "17";
+    var version = "1.6";
+    var build = "18";
 
     const statusEmbed = new Discord.MessageEmbed()
       .setTitle("Status")
@@ -741,7 +741,7 @@ client.on("message", async (message) => {
 // Someone joins the server
 client.on("guildMemberAdd", (member) => {
   var ran = console.log(Math.floor(Math.random() * 4096));
-  var i = client.guilds.cache.get(member.guild.id).memberCount;
+  /* ca peut toujours servir
   function ordinal_suffix_of(i) {
     var j = i % 10,
       k = i % 100;
@@ -756,36 +756,22 @@ client.on("guildMemberAdd", (member) => {
     }
     return i + "th";
   }
+  */
 
   if (member.guild.id === "682588388045488143") {
     var raremes = `monkey to the monkey discord monkey, ${member.user.tag}! \nWe now monkey ${member.guild.memberCount} monkey!\n\n:flushed:`;
     var mes = `Welcome to the Spain discord server, ${member.user.tag}! \nWe now have ${member.guild.memberCount} members!`;
     var cha = "682672528996827183";
-    var img =
-      "https://cdn.discordapp.com/attachments/610055076949524502/661289738463870977/unknown.png";
-    var mess = `Welcome ${member.user.tag} ! You are the ${ordinal_suffix_of(
-      i
-    )} member of the server.\nMake sure your nickname on the server is correctly set to IGN | Town | Nation , and go to <#682880298077388812> to enter the server!`;
   } else {
     if (member.guild.id === "721804083673169950") {
       var raremes = `monkey to the monkey discord monkey, ${member.user.tag}! \nWe now monkey ${member.guild.memberCount} monkey!\n\n:flushed:`;
       var mes = `Welcome to the discord server of Zaragoza, ${member.user.tag}! \nWe now have ${member.guild.memberCount} members!`;
       var cha = "721804083673169953";
-      var img =
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Zaragoza_%28ciudad%29.svg/1200px-Zaragoza_%28ciudad%29.svg.png";
-      var mess = `Welcome ${member.user.tag} ! You are the ${ordinal_suffix_of(
-        i
-      )} member of the server.\nMake sure your nickname on the server is correctly set to IGN | Nation (IGN | Town if you are from Spain), and go to <#721822587016970262> to enter the server!`;
     } else {
-      if (member.guild.id === "660249363301269506") {
+      if (member.guild.id === "654041462710861897") {
         var raremes = `monkey to the monkey discord monkey, ${member.user.tag}! \nWe now monkey ${member.guild.memberCount} monkey!\n\n:flushed:`;
-        var mes = `Welcome to the discord server of Cáceres, ${member.user.tag}! \nWe now have ${member.guild.memberCount} members!`;
-        var cha = "660249363884408834";
-        var img =
-          "https://media.discordapp.net/attachments/667790176184958976/728565817179897887/06ff892a53fb0cc2752b65639189b18d.png";
-        var mess = `Welcome ${
-          member.user.tag
-        } ! You are the ${ordinal_suffix_of(i)} member of the server.`;
+        var mes = `Welcome to the discord server of Valencia, ${member.user.tag}! \nWe now have ${member.guild.memberCount} members!`;
+        var cha = "654041462710861954";
       } else {
       }
     }
@@ -837,6 +823,9 @@ client.on("guildMemberRemove", (member) => {
     `${member.user.tag} couldn't take it anymore`,
     `${member.user.tag} was not wholesome 100 keanu chungus reddit`,
     `${member.user.tag} was an Imposter. 0 Imposters remain.`,
+    `${member.user.tag} est allé à Die en France.`,
+    `${member.user.tag} didnt have the jimmy neutron style.`,
+    `${member.user.tag} has perished to the Obama boss.`,
   ];
 
   if (member.guild.id === "682588388045488143") {
@@ -845,8 +834,8 @@ client.on("guildMemberRemove", (member) => {
     if (member.guild.id === "721804083673169950") {
       var cha = "721804083673169953";
     } else {
-      if (member.guild.id === "660249363301269506") {
-        var cha = "660249363884408834";
+      if (member.guild.id === "654041462710861897") {
+        var cha = "654041462710861954";
       } else {
       }
     }
