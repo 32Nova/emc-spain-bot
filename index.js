@@ -210,7 +210,34 @@ client.on("message", async (message) => {
           .setFooter("Spain bot - World Download");
         message.channel.send(dlEmbed);
       } else {
-        message.reply("Invalid version \nAvailable versions : latest, 1, 2");
+        if (args[0] === "latest" || args[0] === "3") {
+          var fieldtext = [
+            "29 December 2020",
+            "94 Mo",
+            "3",
+            "[Google Drive](https://drive.google.com/file/d/1BTrZRgkG2zLrhCyVngWgTHspUFeNIey6/view?usp=sharing)",
+          ];
+
+          const dlEmbed = new Discord.MessageEmbed()
+            .setTitle("Spain World Download")
+            .setColor(randomColor())
+            .setDescription(
+              "You can download here the Spain map to play it in singleplayer with creative mode.\nPlease do not share the map with outsiders. This is only for nation members :flag_es:\nWhat changed : Updated almost everything except some wilderness, Added a bit of the Nether"
+            )
+            .addFields(
+              { name: "Date of the map", value: fieldtext[0] },
+              { name: "Size", value: fieldtext[1] },
+              { name: "Map number", value: fieldtext[2] },
+              { name: "Download link", value: fieldtext[3] }
+            )
+            .setTimestamp()
+            .setFooter("Spain bot - World Download");
+          message.channel.send(dlEmbed);
+        } else {
+          message.reply(
+            "Invalid version \nAvailable versions : latest, 1, 2, 3"
+          );
+        }
       }
     }
   }
