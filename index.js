@@ -57,6 +57,9 @@ client.on("ready", async () => {
       `Portugay 👎`,
       `Huevo`,
       `Feel the epicness`,
+      `VIBE CHECK`,
+      `obama`,
+      `No soy un robot`,
     ];
     const activity = activities[Math.floor(Math.random() * activities.length)];
     await client.user.setActivity(activity, { type: "WATCHING" });
@@ -122,8 +125,8 @@ client.on("message", (message) => {
     let useconds = Math.floor(utotalSeconds % 60);
     let uptime = `${udays} days, ${uhours} hours, ${uminutes} minutes and ${useconds} seconds`;
     // Uptime end
-    var version = "1.6.1";
-    var build = "19";
+    var version = "1.6.2";
+    var build = "20";
 
     const statusEmbed = new Discord.MessageEmbed()
       .setTitle("Status")
@@ -295,7 +298,7 @@ client.on("message", async (message) => {
       .setTitle("Spain bot | List of commands")
       .setColor(randomColor())
       .setDescription(
-        "**MISC**\n`/help`, `/cmds` : Shows this message\n`/uptime` : Check out the bot's uptime\n`/status` : Displays the bot's RAM usage, ping, uptime\n`/minesweeper <rows> <columns> <lines>` : Play some minesweeper\n`/howgay <user>` : Check the gayness of someone\n`/pengun` : Pengun\n`/meme` : Get a random popular meme from reddit\n`/embed <message>` : Converts your message to a pretty embed\n`/je-e`, `je-e-2` : JE E\n`/cat` : cat\n`/self-destruct` : Makes the bot destroy itself\n`/birb` : Get a random bird image\n\n**MODERATION**\n`/kick <user>` : Kicks the specified user\n`/ban <user>` : Bans the specified user\n`/mute <user>` : Mutes the specified user\n`/unmute <user>` : Unmutes the specified user\n`/purge <amount>` : Deletes the specified amount of messages in the current channel"
+        "**MISC**\n`/help`, `/cmds` : Shows this message\n`/uptime` : Check out the bot's uptime\n`/status` : Displays the bot's RAM usage, ping, uptime\n`/minesweeper <rows> <columns> <lines>` : Play some minesweeper\n`/howgay <user>` : Check the gayness of someone\n`/pengun` : Pengun\n`/meme` : Get a random popular meme from reddit\n`/embed <message>` : Converts your message to a pretty embed\n`/je-e`, `je-e-2` : JE E\n`/cat` : cat\n`/self-destruct` : Makes the bot destroy itself\n`/valencia-map` : Shows the map of Valencia\n`/birb` : Get a random bird image\n\n**MODERATION**\n`/kick <user>` : Kicks the specified user\n`/ban <user>` : Bans the specified user\n`/mute <user>` : Mutes the specified user\n`/unmute <user>` : Unmutes the specified user\n`/purge <amount>` : Deletes the specified amount of messages in the current channel"
       )
       .setTimestamp()
       .setFooter("Spain bot - May vary depending of server");
@@ -751,7 +754,7 @@ client.on("message", async (message) => {
 
 // Someone joins the server
 client.on("guildMemberAdd", (member) => {
-  var ran = console.log(Math.floor(Math.random() * 4096));
+  var ran = console.log(Math.floor(Math.random() * 1024));
   /* ca peut toujours servir
   function ordinal_suffix_of(i) {
     var j = i % 10,
@@ -802,41 +805,32 @@ client.on("guildMemberAdd", (member) => {
         .setTitle("Someone just joined!")
         .setDescription(fmes)
     );
-
-  /* Disabled
-  member.send(
-    new Discord.MessageEmbed()
-      .setColor(randomColor())
-      .setTitle("Welcome !")
-      .setDescription(mess)
-      .setFooter("Spain bot")
-      .setTimestamp()
-      .setImage(img)
-  );
-  */
 });
 // Someone leaves the server
 client.on("guildMemberRemove", (member) => {
   var quitMessages = [
     `Goodbye ${member.user.tag}, we will miss trying to avoid you around here!`,
     `${member.user.tag} earned the biggay from leaving!`,
-    `${member.user.tag} wasn't enough epic to stay here`,
+    `${member.user.tag} wasn't enough epic to stay here.`,
     `${member.user.tag} litteraly left the server!`,
     `${member.user.tag} was probably ggovi :flushed:`,
     `${member.user.tag} left. How rude!`,
     `${member.user.tag} is gone.`,
     `${member.user.tag} is no more.`,
-    `${member.user.tag} saw something cringe`,
+    `${member.user.tag} saw something cringe.`,
     `${member.user.tag} smelled portguese farts :flushed:`,
-    `${member.user.tag} took a crap`,
+    `${member.user.tag} took a crap.`,
     `${member.user.tag} had to go.`,
-    `${member.user.tag} was late for school`,
-    `${member.user.tag} couldn't take it anymore`,
+    `${member.user.tag} was late for school.`,
+    `${member.user.tag} couldn't take it anymore.`,
     `${member.user.tag} was not wholesome 100 keanu chungus reddit`,
     `${member.user.tag} was an Imposter. 0 Imposters remain.`,
     `${member.user.tag} est allé à Die en France.`,
     `${member.user.tag} didnt have the jimmy neutron style.`,
     `${member.user.tag} has perished to the Obama boss.`,
+    `${member.user.tag} was covered in oil.`,
+    `${member.user.tag} was trolled.`,
+    `${member.user.tag} returned to monkey.`
   ];
 
   if (member.guild.id === "682588388045488143") {
