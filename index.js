@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
-const fs = require("fs");
+// const fs = require("fs");
+var emc = require("earthmc")
 const ms = require("ms");
 const fetch = require("node-fetch");
 const Minesweeper = require("discord.js-minesweeper");
@@ -125,8 +126,8 @@ client.on("message", (message) => {
     let useconds = Math.floor(utotalSeconds % 60);
     let uptime = `${udays} days, ${uhours} hours, ${uminutes} minutes and ${useconds} seconds`;
     // Uptime end
-    var version = "1.6.2";
-    var build = "20";
+    var version = "1.7";
+    var build = "21";
 
     const statusEmbed = new Discord.MessageEmbed()
       .setTitle("Status")
@@ -701,7 +702,7 @@ client.on("message", (message) => {
 
 // /je-e
 client.on("message", (message) => {
-  if (message.content === "/je-e") {
+  if (message.content.startsWith("/je-e")) {
     const video =
       "https://cdn.discordapp.com/attachments/667790176184958976/735123101788012654/je_e_1.mp4";
     message.reply("JE E", { files: [video] });
@@ -710,7 +711,7 @@ client.on("message", (message) => {
 
 // /je-e-2
 client.on("message", (message) => {
-  if (message.content === "/je-e-2") {
+  if (message.content.startsWith("/je-e-2")) {
     const video =
       "https://cdn.discordapp.com/attachments/570574758522126366/735211522434924676/Jee.mp4";
     message.reply("JE E", { files: [video] });
@@ -719,7 +720,7 @@ client.on("message", (message) => {
 
 // meem
 client.on("message", async (message) => {
-  if (message.content === "/self-destruct") {
+  if (message.content.startsWith("/self-destruct")) {
     let messag;
     messag = await message.channel.send(
       "Self destruct initiated. Explosion in 20..."
@@ -737,7 +738,7 @@ client.on("message", async (message) => {
 
 // /birb
 client.on("message", async (message) => {
-  if (message.content === "/birb") {
+  if (message.content.startsWith("/birb")) {
     const { link } = await fetch(
       "https://some-random-api.ml/img/birb"
     ).then((response) => response.json());
@@ -749,6 +750,26 @@ client.on("message", async (message) => {
       .setTimestamp()
       .setFooter("Spain bot - melons");
     message.channel.send(birbEmbed);
+  }
+});
+
+// /nation-info
+client.on("message", async (message) => {
+  if (message.content.startsWith("/nation-info")) {
+    var spain = await emc.getNation("Spain").then(spain => { return spain });
+    const res = spain["residents"];
+    const towns = spain["towns"];
+
+    const spaininfo = `**Rey :** ${spain["king"]}\n**Capital :** ${spain["capitalName"]} (X ${spain["capitalX"]}; Z ${spain["capitalZ"]})\n**Total chunks :** ${spain["area"]}\n**Total residents :** ${res.length}\n**Total towns :** ${towns.length}\n**List of towns :** \`\`\`${towns}\`\`\``;
+
+    const spainEmbed = new Discord.MessageEmbed()
+    .setColor(randomColor())
+    .setTitle("Information about Spain")
+    .setDescription(spaininfo)
+    .setImage("https://media.discordapp.net/attachments/667790176184958976/797881647084077086/Screenshot_344.png")
+    .setTimestamp()
+    .setFooter("Spain bot - Nation Info");
+  message.channel.send(spainEmbed)
   }
 });
 
