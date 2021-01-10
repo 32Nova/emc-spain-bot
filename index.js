@@ -881,4 +881,4 @@ client.on("guildMemberRemove", (member) => {
 });
 
 // Login token
-client.login("NjYzODY4ODQyODIwNTAxNTUz.XhOyCg.hod0hc8Sknp6VL2Gf8okSgN1RA8");
+client.login(process.env.TOKEN);
