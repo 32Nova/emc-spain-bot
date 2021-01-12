@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 // const fs = require("fs");
-var emc = require("earthmc")
+var emc = require("earthmc");
 const ms = require("ms");
 const fetch = require("node-fetch");
 const Minesweeper = require("discord.js-minesweeper");
@@ -299,7 +299,7 @@ client.on("message", async (message) => {
       .setTitle("Spain bot | List of commands")
       .setColor(randomColor())
       .setDescription(
-        "**MISC**\n`/help`, `/cmds` : Shows this message\n`/uptime` : Check out the bot's uptime\n`/status` : Displays the bot's RAM usage, ping, uptime\n`/minesweeper <rows> <columns> <lines>` : Play some minesweeper\n`/howgay <user>` : Check the gayness of someone\n`/pengun` : Pengun\n`/meme` : Get a random popular meme from reddit\n`/embed <message>` : Converts your message to a pretty embed\n`/je-e`, `je-e-2` : JE E\n`/cat` : cat\n`/self-destruct` : Makes the bot destroy itself\n`/valencia-map` : Shows the map of Valencia\n`/birb` : Get a random bird image\n\n**MODERATION**\n`/kick <user>` : Kicks the specified user\n`/ban <user>` : Bans the specified user\n`/mute <user>` : Mutes the specified user\n`/unmute <user>` : Unmutes the specified user\n`/purge <amount>` : Deletes the specified amount of messages in the current channel"
+        "**MISC**\n`/help`, `/cmds` : Shows this message\n`/uptime` : Check out the bot's uptime\n`/status` : Displays the bot's RAM usage, ping, uptime\n`/minesweeper <rows> <columns> <lines>` : Play some minesweeper\n`/howgay <user>` : Check the gayness of someone\n`/pengun` : Pengun\n`/meme` : Get a random popular meme from reddit\n`/embed <message>` : Converts your message to a pretty embed\n`/je-e`, `je-e-2` : JE E\n`/cat` : cat\n`/self-destruct` : Makes the bot destroy itself\n`/birb` : Get a random bird image\n\n**SPAIN RELATED**\n`/valencia-map` : Shows the map of Valencia\n`/nation-info` : Shows live information about Spain\n\n**MODERATION**\n`/kick <user>` : Kicks the specified user\n`/ban <user>` : Bans the specified user\n`/mute <user>` : Mutes the specified user\n`/unmute <user>` : Unmutes the specified user\n`/purge <amount>` : Deletes the specified amount of messages in the current channel"
       )
       .setTimestamp()
       .setFooter("Spain bot - May vary depending of server");
@@ -756,20 +756,24 @@ client.on("message", async (message) => {
 // /nation-info
 client.on("message", async (message) => {
   if (message.content.startsWith("/nation-info")) {
-    var spain = await emc.getNation("Spain").then(spain => { return spain });
+    var spain = await emc.getNation("Spain").then((spain) => {
+      return spain;
+    });
     const res = spain["residents"];
     const towns = spain["towns"];
 
     const spaininfo = `**Rey :** ${spain["king"]}\n**Capital :** ${spain["capitalName"]} (X ${spain["capitalX"]}; Z ${spain["capitalZ"]})\n**Total chunks :** ${spain["area"]}\n**Total residents :** ${res.length}\n**Total towns :** ${towns.length}\n**List of towns :** \`\`\`${towns}\`\`\``;
 
     const spainEmbed = new Discord.MessageEmbed()
-    .setColor(randomColor())
-    .setTitle("Information about Spain")
-    .setDescription(spaininfo)
-    .setImage("https://media.discordapp.net/attachments/667790176184958976/797881647084077086/Screenshot_344.png")
-    .setTimestamp()
-    .setFooter("Spain bot - Nation Info");
-  message.channel.send(spainEmbed)
+      .setColor(randomColor())
+      .setTitle("Information about Spain")
+      .setDescription(spaininfo)
+      .setImage(
+        "https://media.discordapp.net/attachments/667790176184958976/797881647084077086/Screenshot_344.png"
+      )
+      .setTimestamp()
+      .setFooter("Spain bot - Nation Info");
+    message.channel.send(spainEmbed);
   }
 });
 
@@ -851,7 +855,7 @@ client.on("guildMemberRemove", (member) => {
     `${member.user.tag} has perished to the Obama boss.`,
     `${member.user.tag} was covered in oil.`,
     `${member.user.tag} was trolled.`,
-    `${member.user.tag} returned to monkey.`
+    `${member.user.tag} returned to monkey.`,
   ];
 
   if (member.guild.id === "682588388045488143") {
