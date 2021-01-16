@@ -1,5 +1,4 @@
 const Discord = require("discord.js");
-// const fs = require("fs");
 var emc = require("earthmc");
 const ms = require("ms");
 const fetch = require("node-fetch");
