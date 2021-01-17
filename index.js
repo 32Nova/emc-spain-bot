@@ -115,7 +115,6 @@ client.on("message", (message) => {
     var latency = Date.now() - message.createdTimestamp; // Latency
     var pingapi = client.ws.ping; // API ping
     var usedramB = process.memoryUsage().heapUsed; // Used RAM
-    var maxramB = process.memoryUsage().rss; // Max RAM
     // Uptime
     let utotalSeconds = client.uptime / 1000;
     let udays = Math.floor(utotalSeconds / 86400);
@@ -143,9 +142,7 @@ client.on("message", (message) => {
           name: "RAM",
           value: `${
             Math.round((usedramB / 1024 / 1024 + Number.EPSILON) * 100) / 100
-          } MB / ${
-            Math.round((maxramB / 1024 / 1024 + Number.EPSILON) * 100) / 100
-          } MB`,
+          } MB / 512 MB`,
         },
         { name: "Uptime", value: `${uptime}` }
       )
