@@ -125,8 +125,8 @@ client.on("message", (message) => {
     let useconds = Math.floor(utotalSeconds % 60);
     let uptime = `${udays} days, ${uhours} hours, ${uminutes} minutes and ${useconds} seconds`;
     // Uptime end
-    var version = "1.7";
-    var build = "21";
+    var version = "1.7.1-rc";
+    var build = "22";
 
     const statusEmbed = new Discord.MessageEmbed()
       .setTitle("Status")
@@ -157,51 +157,31 @@ client.on("message", (message) => {
 // /spain-download
 client.on("message", async (message) => {
   if (message.content.startsWith("/spain-download")) {
-    const args = message.content.slice(15).trim().split(" ");
+    if (
+      message.channel.guild.id === "682588388045488143" &&
+      message.channel.id === "722523653140643850"
+    ) {
+      const args = message.content.slice(15).trim().split(" ");
 
-    if (!args.length) {
-      return message.reply(
-        `Please specify the map version (type latest for the more recent map).\nAvailable versions : 1`
-      );
-    }
+      if (!args.length) {
+        return message.reply(
+          `Please specify the map version (type latest for the more recent map).\nAvailable versions : 1`
+        );
+      }
 
-    if (args[0] === "1") {
-      var fieldtext = [
-        "20 August 2020",
-        "216 Mo",
-        "1",
-        "[Google Drive](https://drive.google.com/file/d/1Ms87ZB-_5oA5ShWIM1QU9heyPI4rZlZr/view?usp=sharing)",
-      ];
-
-      const dlEmbed = new Discord.MessageEmbed()
-        .setTitle("Spain World Download")
-        .setColor(randomColor())
-        .setDescription(
-          "You can download here the Spain map to play it in singleplayer with creative mode.\nPlease do not share the map with outsiders. This is only for nation members :flag_es:"
-        )
-        .addFields(
-          { name: "Date of the map", value: fieldtext[0] },
-          { name: "Size", value: fieldtext[1] },
-          { name: "Map number", value: fieldtext[2] },
-          { name: "Download link", value: fieldtext[3] }
-        )
-        .setTimestamp()
-        .setFooter("Spain bot - World Download");
-      message.channel.send(dlEmbed);
-    } else {
-      if (args[0] === "2") {
+      if (args[0] === "1") {
         var fieldtext = [
-          "20 December 2020",
-          "99 Mo",
-          "2 - Partially updated",
-          "[Google Drive](https://drive.google.com/file/d/1CMEl5TFeORWRcdaLvx9SQ6KZ7nOXsAnG/view?usp=sharing)",
+          "20 August 2020",
+          "216 Mo",
+          "1",
+          "[Google Drive](https://drive.google.com/file/d/1Ms87ZB-_5oA5ShWIM1QU9heyPI4rZlZr/view?usp=sharing)",
         ];
 
         const dlEmbed = new Discord.MessageEmbed()
           .setTitle("Spain World Download")
           .setColor(randomColor())
           .setDescription(
-            "You can download here the Spain map to play it in singleplayer with creative mode.\nPlease do not share the map with outsiders. This is only for nation members :flag_es:\nNote that this version is PARTIAL - everything was not updated - Only updated Valencia, Porto, Madrid and a bit of wilderness"
+            "You can download here the Spain map to play it in singleplayer with creative mode.\nPlease do not share the map with outsiders. This is only for nation members :flag_es:"
           )
           .addFields(
             { name: "Date of the map", value: fieldtext[0] },
@@ -213,19 +193,19 @@ client.on("message", async (message) => {
           .setFooter("Spain bot - World Download");
         message.channel.send(dlEmbed);
       } else {
-        if (args[0] === "latest" || args[0] === "3") {
+        if (args[0] === "2") {
           var fieldtext = [
-            "29 December 2020",
-            "94 Mo",
-            "3",
-            "[Google Drive](https://drive.google.com/file/d/1BTrZRgkG2zLrhCyVngWgTHspUFeNIey6/view?usp=sharing)",
+            "20 December 2020",
+            "99 Mo",
+            "2 - Partially updated",
+            "[Google Drive](https://drive.google.com/file/d/1CMEl5TFeORWRcdaLvx9SQ6KZ7nOXsAnG/view?usp=sharing)",
           ];
 
           const dlEmbed = new Discord.MessageEmbed()
             .setTitle("Spain World Download")
             .setColor(randomColor())
             .setDescription(
-              "You can download here the Spain map to play it in singleplayer with creative mode.\nPlease do not share the map with outsiders. This is only for nation members :flag_es:\nWhat changed : Updated almost everything except some wilderness, Added a bit of the Nether"
+              "You can download here the Spain map to play it in singleplayer with creative mode.\nPlease do not share the map with outsiders. This is only for nation members :flag_es:\nNote that this version is PARTIAL - everything was not updated - Only updated Valencia, Porto, Madrid and a bit of wilderness"
             )
             .addFields(
               { name: "Date of the map", value: fieldtext[0] },
@@ -237,11 +217,38 @@ client.on("message", async (message) => {
             .setFooter("Spain bot - World Download");
           message.channel.send(dlEmbed);
         } else {
-          message.reply(
-            "Invalid version \nAvailable versions : latest, 1, 2, 3"
-          );
+          if (args[0] === "latest" || args[0] === "3") {
+            var fieldtext = [
+              "29 December 2020",
+              "94 Mo",
+              "3",
+              "[Google Drive](https://drive.google.com/file/d/1BTrZRgkG2zLrhCyVngWgTHspUFeNIey6/view?usp=sharing)",
+            ];
+
+            const dlEmbed = new Discord.MessageEmbed()
+              .setTitle("Spain World Download")
+              .setColor(randomColor())
+              .setDescription(
+                "You can download here the Spain map to play it in singleplayer with creative mode.\nPlease do not share the map with outsiders. This is only for nation members :flag_es:\nWhat changed : Updated almost everything except some wilderness, Added a bit of the Nether"
+              )
+              .addFields(
+                { name: "Date of the map", value: fieldtext[0] },
+                { name: "Size", value: fieldtext[1] },
+                { name: "Map number", value: fieldtext[2] },
+                { name: "Download link", value: fieldtext[3] }
+              )
+              .setTimestamp()
+              .setFooter("Spain bot - World Download");
+            message.channel.send(dlEmbed);
+          } else {
+            message.reply(
+              "Invalid version \nAvailable versions : latest, 1, 2, 3"
+            );
+          }
         }
       }
+    } else {
+      message.delete();
     }
   }
 });

@@ -3,8 +3,8 @@
   "engines": {
     "node": "12.x"
   },
-  "version": "1.7.0",
-  "build": "21",
+  "version": "1.7.1",
+  "build": "22",
   "description": "Spain bot",
   "main": "index.js",
   "scripts": {
