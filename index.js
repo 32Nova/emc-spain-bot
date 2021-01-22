@@ -124,8 +124,8 @@ client.on("message", (message) => {
     let useconds = Math.floor(utotalSeconds % 60);
     let uptime = `${udays} days, ${uhours} hours, ${uminutes} minutes and ${useconds} seconds`;
     // Uptime end
-    var version = "1.7.1";
-    var build = "22";
+    var version = "1.7.2";
+    var build = "23";
 
     const statusEmbed = new Discord.MessageEmbed()
       .setTitle("Status")
