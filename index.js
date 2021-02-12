@@ -124,7 +124,7 @@ client.on("message", (message) => {
     let useconds = Math.floor(utotalSeconds % 60);
     let uptime = `${udays} days, ${uhours} hours, ${uminutes} minutes and ${useconds} seconds`;
     // Uptime end
-    var version = "1.7.3-RC2";
+    var version = "1.7.3";
     var build = "24";
 
     const statusEmbed = new Discord.MessageEmbed()
@@ -813,7 +813,7 @@ client.on("message", async (message) => {
     });
 
     if (serverInfo["serverOnline"] == true) {
-      var ot = `<:greentick:809691624325513238> Server Online\n${serverInfo["towny"]}/110 Players\n${serverInfo["queue"]} Players in Queue`;
+      var ot = `<:greentick:809691624325513238> Server Online\n${serverInfo["towny"]}/110 Players`;
     } else {
       var ot = `<:redtick:809692054648389637> Server Offline`;
     }
