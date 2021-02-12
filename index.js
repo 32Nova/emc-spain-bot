@@ -124,8 +124,8 @@ client.on("message", (message) => {
     let useconds = Math.floor(utotalSeconds % 60);
     let uptime = `${udays} days, ${uhours} hours, ${uminutes} minutes and ${useconds} seconds`;
     // Uptime end
-    var version = "1.7.2";
-    var build = "23";
+    var version = "1.7.3-RC1";
+    var build = "24";
 
     const statusEmbed = new Discord.MessageEmbed()
       .setTitle("Status")
@@ -797,11 +797,34 @@ client.on("message", async (message) => {
       .setTitle("Information about Spain")
       .setDescription(spaininfo)
       .setImage(
-        "https://media.discordapp.net/attachments/667790176184958976/797881647084077086/Screenshot_344.png"
+        "https://media.discordapp.net/attachments/667790176184958976/809857583376236574/spain.png"
       )
       .setTimestamp()
       .setFooter("Spain bot - Nation Info");
     message.channel.send(spainEmbed);
+  }
+});
+
+// /server-info
+client.on("message", async (message) => {
+  if (message.content.startsWith("/server-info")) {
+    var serverInfo = await emc.getServerInfo().then((info) => {
+      return info;
+    });
+
+    if (serverinfo["serverOnline"] == true) {
+      var ot = `<:greentick:809691624325513238> Server Online\n${serverInfo["towny"]}/110 Players\n${serverInfo["queue"]} Players in Queue`;
+    } else {
+      var ot = `<:redtick:809692054648389637> Server Offline`;
+    }
+
+    const serverEmbed = new Discord.MessageEmbed()
+      .setColor(randomColor())
+      .setTitle("Information about EarthMC")
+      .setDescription(ot)
+      .setTimestamp()
+      .setFooter("Spain bot - Server Info");
+    message.channel.send(serverEmbed);
   }
 });
 
