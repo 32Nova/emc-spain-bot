@@ -4,7 +4,8 @@
     "node": "12.x"
   },
   "version": "1.7.3",
-  "build": "24",
+  "versionTrue": "1.7.3",
+  "build": "25",
   "description": "Spain bot",
   "main": "index.js",
   "scripts": {

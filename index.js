@@ -124,8 +124,9 @@ client.on("message", (message) => {
     let useconds = Math.floor(utotalSeconds % 60);
     let uptime = `${udays} days, ${uhours} hours, ${uminutes} minutes and ${useconds} seconds`;
     // Uptime end
-    var version = "1.7.3";
-    var build = "24";
+    var pkg = require("./package.json");
+    var version = pkg["versionTrue"];
+    var build = pkg["build"];
 
     const statusEmbed = new Discord.MessageEmbed()
       .setTitle("Status")
@@ -782,6 +783,7 @@ client.on("message", async (message) => {
 });
 
 // /nation-info
+/*
 client.on("message", async (message) => {
   if (message.content.startsWith("/nation-info")) {
     var spain = await emc.getNation("Spain").then((spain) => {
@@ -804,8 +806,10 @@ client.on("message", async (message) => {
     message.channel.send(spainEmbed);
   }
 });
+*/
 
 // /server-info
+/*
 client.on("message", async (message) => {
   if (message.content.startsWith("/server-info")) {
     var serverInfo = await emc.getServerInfo().then((info) => {
@@ -827,6 +831,7 @@ client.on("message", async (message) => {
     message.channel.send(serverEmbed);
   }
 });
+*/
 
 // Someone joins the server
 client.on("guildMemberAdd", (member) => {
