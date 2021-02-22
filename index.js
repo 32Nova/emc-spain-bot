@@ -176,7 +176,7 @@ client.on("message", (message) => {
         let role = message.guild.roles.cache.find(
           (r) => r.id === "682667013444993024"
         );
-        var user = message.mentions.users.first();
+        var user = message.mentions.users.first().id;
         var ign = args[1];
         var town = args[2];
 
@@ -190,10 +190,13 @@ client.on("message", (message) => {
           );
         } else {
           message.guild.members.cache
-            .get(user.id)
+            .get(user)
             .setNickname(`${ign} | ${town}`)
             .catch(console.error);
-          user.roles.add(role).catch(console.error);
+          message.guild.members.cache
+            .get(user)
+            .roles.add(role)
+            .catch(console.error);
 
           if (user.roles.cache.has(role)) {
             message.reply(
