@@ -158,7 +158,7 @@ client.on("message", (message) => {
     if (
       message.channel.guild.id === "682588388045488143" &&
       message.member.roles.cache.some(
-        (role) => role.id === "682666895471935670"
+        (role) => role.id === "682667013444993024"
       )
     ) {
       const args = message.content.slice(8).trim().split(" ");
