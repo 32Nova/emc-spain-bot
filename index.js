@@ -154,14 +154,14 @@ client.on("message", (message) => {
 
 // /citizen <@user> <IGN> <Town>
 client.on("message", (message) => {
-  if (message.content.startsWith("/citizen")) {
+  if (message.content.startsWith("/citizen ")) { // Space is intended
     if (
       message.channel.guild.id === "682588388045488143" &&
       message.member.roles.cache.some(
         (role) => role.id === "682667013444993024"
       )
     ) {
-      const args = message.content.slice(8).trim().split(" ");
+      const args = message.content.slice(9).trim().split(" ");
       if (!args.length) {
         return message.reply(
           "Please specify the user you want to give citizen role to, its IGN and town name\nExample: ``/citizen @Obama#1234 Obama_Gaming Valencia``"
