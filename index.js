@@ -198,9 +198,11 @@ client.on("message", (message) => {
             .roles.add(role)
             .catch(console.error);
 
-          if (user.roles.cache.has(role)) {
+          if (message.guild.members.cache
+            .get(user)
+            .roles.has(role)) {
             message.reply(
-              `Successfully gave Citizen to ${user.username}#${user.discriminator}`
+              `Successfully gave Citizen to ${message.mentions.users.first().username}#${message.mentions.users.first().discriminator}`
             );
           } else {
             message.reply(
