@@ -152,6 +152,46 @@ client.on("message", (message) => {
   }
 });
 
+// /citizen <@user> <IGN> <Town>
+client.on("message", (message) => {
+  if (message.content.startsWith("/citizen")) {
+    if (
+      message.channel.guild.id === "682588388045488143" &&
+      message.member.roles.cache.some(
+        (role) => role.id === "682666895471935670"
+      )
+    ) {
+      const args = message.content.slice(8).trim().split(" ");
+      if (!args.length) {
+        return message.reply(
+          "Please specify the user you want to give citizen role to, its IGN and town name\nExample: ``/citizen @Obama#1234 Obama_Gaming Valencia``"
+        );
+      }
+
+      let role = message.guild.roles.cache.find(r => r.id === "682667013444993024");
+      var user = message.mentions.users.first();
+      var ign = args[1];
+      var town = args[2];
+
+      if (user === "" || ign === "" || town === "") {
+        return message.reply(
+          `Incorrect arguments.\nYou inputed : User = '${user.username}#${user.discriminator}', IGN = '${ign}' and Town = '${town}'`
+        );
+      }
+      message.guild.members.cache.get(user).setNickname(`${ign} | ${town}`).catch(console.error);
+      user.roles.add(role).catch(console.error);
+
+      if (user.roles.cache.has(role)) {
+      return message.reply(`Successfully gave Citizen to ${user.username}#${user.discriminator}`);
+      } else {
+        message.reply("An error occured when giving the role, please retry.")
+      }
+    } else {
+      message.reply("You do not have permission to use this command!");
+    }
+  }
+});
+
 // /spain-download
 client.on("message", async (message) => {
   if (message.content.startsWith("/spain-download")) {
@@ -163,7 +203,7 @@ client.on("message", async (message) => {
 
       if (!args.length) {
         return message.reply(
-          `Please specify the map version (type latest for the more recent map).\nAvailable versions : 1`
+          `Please specify the map version (type latest for the more recent map).`
         );
       }
 

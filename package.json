@@ -3,9 +3,9 @@
   "engines": {
     "node": "12.x"
   },
-  "version": "1.7.3",
-  "versionTrue": "1.7.3",
-  "build": "25",
+  "version": "1.7.4",
+  "versionTrue": "1.7.4-rc1",
+  "build": "26",
   "description": "Spain bot",
   "main": "index.js",
   "scripts": {
