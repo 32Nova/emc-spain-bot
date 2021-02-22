@@ -200,7 +200,7 @@ client.on("message", (message) => {
 
           if (message.guild.members.cache
             .get(user)
-            .roles.has(role)) {
+            .roles.cache.has(role)) {
             message.reply(
               `Successfully gave Citizen to ${message.mentions.users.first().username}#${message.mentions.users.first().discriminator}`
             );
