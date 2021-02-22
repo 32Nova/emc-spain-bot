@@ -154,19 +154,25 @@ client.on("message", (message) => {
 
 // /citizen <@user> <IGN> <Town>
 client.on("message", (message) => {
-  if (message.content.startsWith("/citizen ")) { // Space is intended
+  if (message.content.startsWith("/citizen ")) {
+    // Space is intended
     if (
       message.channel.guild.id === "682588388045488143" &&
       message.member.roles.cache.some(
         (role) => role.id === "682667013444993024"
       )
     ) {
+      console.log("Perms OK");
       const args = message.content.slice(9).trim().split(" ");
+      console.log(
+        `Args sliced. var args = ${args}, args.length = ${args.length}`
+      );
       if (!args.length) {
-        return message.reply(
+        message.reply(
           "Please specify the user you want to give citizen role to, its IGN and town name\nExample: ``/citizen @Obama#1234 Obama_Gaming Valencia``"
         );
       } else {
+        console.log("args.lenght is not null.");
         let role = message.guild.roles.cache.find(
           (r) => r.id === "682667013444993024"
         );
@@ -174,8 +180,12 @@ client.on("message", (message) => {
         var ign = args[1];
         var town = args[2];
 
+        console.log(
+          `Vars defined. var user = ${user}, ign = ${ign}, town = ${town}`
+        );
+
         if (user === "" || ign === "" || town === "") {
-          return message.reply(
+          message.reply(
             `Incorrect arguments.\nYou inputed : User = '${user.username}#${user.discriminator}', IGN = '${ign}' and Town = '${town}'`
           );
         } else {
@@ -186,7 +196,7 @@ client.on("message", (message) => {
           user.roles.add(role).catch(console.error);
 
           if (user.roles.cache.has(role)) {
-            return message.reply(
+            message.reply(
               `Successfully gave Citizen to ${user.username}#${user.discriminator}`
             );
           } else {
