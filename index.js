@@ -166,25 +166,35 @@ client.on("message", (message) => {
         return message.reply(
           "Please specify the user you want to give citizen role to, its IGN and town name\nExample: ``/citizen @Obama#1234 Obama_Gaming Valencia``"
         );
-      }
-
-      let role = message.guild.roles.cache.find(r => r.id === "682667013444993024");
-      var user = message.mentions.users.first();
-      var ign = args[1];
-      var town = args[2];
-
-      if (user === "" || ign === "" || town === "") {
-        return message.reply(
-          `Incorrect arguments.\nYou inputed : User = '${user.username}#${user.discriminator}', IGN = '${ign}' and Town = '${town}'`
-        );
-      }
-      message.guild.members.cache.get(user).setNickname(`${ign} | ${town}`).catch(console.error);
-      user.roles.add(role).catch(console.error);
-
-      if (user.roles.cache.has(role)) {
-      return message.reply(`Successfully gave Citizen to ${user.username}#${user.discriminator}`);
       } else {
-        message.reply("An error occured when giving the role, please retry.")
+        let role = message.guild.roles.cache.find(
+          (r) => r.id === "682667013444993024"
+        );
+        var user = message.mentions.users.first();
+        var ign = args[1];
+        var town = args[2];
+
+        if (user === "" || ign === "" || town === "") {
+          return message.reply(
+            `Incorrect arguments.\nYou inputed : User = '${user.username}#${user.discriminator}', IGN = '${ign}' and Town = '${town}'`
+          );
+        } else {
+          message.guild.members.cache
+            .get(user)
+            .setNickname(`${ign} | ${town}`)
+            .catch(console.error);
+          user.roles.add(role).catch(console.error);
+
+          if (user.roles.cache.has(role)) {
+            return message.reply(
+              `Successfully gave Citizen to ${user.username}#${user.discriminator}`
+            );
+          } else {
+            message.reply(
+              "An error occured when giving the role, please retry."
+            );
+          }
+        }
       }
     } else {
       message.reply("You do not have permission to use this command!");
