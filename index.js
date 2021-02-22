@@ -190,7 +190,7 @@ client.on("message", (message) => {
           );
         } else {
           message.guild.members.cache
-            .get(user)
+            .get(user.id)
             .setNickname(`${ign} | ${town}`)
             .catch(console.error);
           user.roles.add(role).catch(console.error);
