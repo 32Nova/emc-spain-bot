@@ -54,7 +54,6 @@ client.on("ready", async () => {
       `Spain gang`,
       `Join Spain!`,
       `Iberia gang`,
-      `Portugay 👎`,
       `Huevo`,
       `Feel the epicness`,
       `VIBE CHECK`,
@@ -66,7 +65,7 @@ client.on("ready", async () => {
   }, 120000);
 });
 
-// Error listener
+// Error listeners
 // Websockets and network
 client.on("shardError", (error) => {
   client.channels.cache
@@ -80,8 +79,10 @@ process.on("unhandledRejection", (error) => {
     .send(":x: An API error occured...\n```" + error + "```");
 });
 
-// /restart
+// Non-async message listener
 client.on("message", (message) => {
+
+  // /restart
   if (message.content === "/restart") {
     if (message.author.id !== "485165406881841152")
       return message.reply("Missing permissions!");
@@ -90,10 +91,8 @@ client.on("message", (message) => {
       process.exit(1);
     });
   }
-});
 
-// Anti ad
-client.on("message", (message) => {
+  // Anti ad
   if (
     message.content.includes("discord.gg/") ||
     message.content.includes("discordapp.com/invite/")
@@ -107,10 +106,8 @@ client.on("message", (message) => {
     }
   } else {
   }
-});
 
-// /status
-client.on("message", (message) => {
+  // /status
   if (message.content.startsWith("/status")) {
     var latency = Date.now() - message.createdTimestamp; // Latency
     var pingapi = client.ws.ping; // API ping
@@ -150,11 +147,9 @@ client.on("message", (message) => {
       .setFooter("Spain bot - /status");
     message.channel.send(statusEmbed);
   }
-});
 
-// /citizen <@user> <IGN> <Town>
-client.on("message", (message) => {
-  if (message.content.startsWith("/citizen ")) { // Space is intended
+  // /citizen
+  if (message.content.startsWith("/citizen")) {
     if (
       message.channel.guild.id === "682588388045488143" &&
       message.member.roles.cache.some(
@@ -199,10 +194,374 @@ client.on("message", (message) => {
       message.reply("You do not have permission to use this command!");
     }
   }
+
+  // /ping
+  if (message.content.startsWith("/ping")) {
+    var ping = Date.now() - message.createdTimestamp;
+
+    var pingapi = client.ws.ping;
+
+    if (ping < 9999999) {
+      var pingc = "#000000";
+    }
+    if (ping < 5000) {
+      var pingc = "#440000";
+    }
+    if (ping < 2000) {
+      var pingc = "#770000";
+    }
+    if (ping < 1000) {
+      var pingc = "#FF0000";
+    }
+    if (ping < 500) {
+      var pingc = "#FF9900";
+    }
+    if (ping < 200) {
+      var pingc = "#FFFF00";
+    }
+    if (ping < 70) {
+      var pingc = "#55FF00";
+    }
+    if (ping < 20) {
+      var pingc = "#00FF00";
+    }
+
+    pingEmbed = new Discord.MessageEmbed()
+      .setTitle("Ping")
+      .setColor(pingc)
+      .setDescription(`Latency : ${ping}ms\nAPI : ${pingapi}ms`)
+      .setFooter("Pong")
+      .setTimestamp();
+
+    message.channel.send(pingEmbed);
+  }
+
+  // /help
+  if (
+    message.content.startsWith("/help") ||
+    message.content.startsWith("/cmds")
+  ) {
+    const helpEmbed = new Discord.MessageEmbed()
+      .setTitle("Spain bot | List of commands")
+      .setColor(randomColor())
+      .setDescription(
+        "**MISC**\n`/help`, `/cmds` : Shows this message\n`/uptime` : Check out the bot's uptime\n`/status` : Displays the bot's RAM usage, ping, uptime\n`/minesweeper <rows> <columns> <mines>` : Play some minesweeper\n`/howgay <user>` : Check the gayness of someone\n`/pengun` : Pengun\n`/meme` : Get a random popular meme from reddit\n`/embed <message>` : Converts your message to a pretty embed\n`/je-e`, `je-e-2` : JE E\n`/cat` : cat\n`/self-destruct` : Makes the bot destroy itself\n`/birb` : Get a random bird image\n\n**SPAIN RELATED**\n`/valencia-map` : Shows the map of Valencia\n`/nation-info` : Shows live information about Spain\n\n**MODERATION**\n`/kick <user>` : Kicks the specified user\n`/ban <user>` : Bans the specified user\n`/mute <user>` : Mutes the specified user\n`/unmute <user>` : Unmutes the specified user\n`/purge <amount>` : Deletes the specified amount of messages in the current channel"
+      )
+      .setTimestamp()
+      .setFooter("Spain bot - May vary depending of server");
+    message.channel.send(helpEmbed);
+  }
+
+  // /eval
+  if (message.content.toLowerCase().startsWith("/evalr")) {
+    if (message.author.id !== "485165406881841152") return;
+    var args = message.content.split(" ").slice(1);
+
+    try {
+      const code = args.join(" ");
+      let evaled = eval(code);
+
+      if (typeof evaled !== "string") evaled = require("util").inspect(evaled);
+
+      const theEmbed = new Discord.MessageEmbed()
+        .setColor("#00ff00")
+        .setTitle("Evaluation Success")
+        .setDescription(
+          `**Expression**\n\`\`\`​${code}\`\`\`\n**Result**\n\`\`\`​${evaled}\`\`\``
+        )
+        .setTimestamp();
+      message.channel.send(theEmbed);
+    } catch (err) {
+      const errEmbed = new Discord.MessageEmbed()
+        .setTitle("Evaluation Failed")
+        .setColor("#ff0000")
+        .setDescription(`\`\`\`${err}\`\`\``)
+        .setTimestamp();
+      message.channel.send(errEmbed);
+    }
+    message.delete();
+  }
+
+  if (message.content.startsWith("/evaln")) {
+    if (message.author.id !== "485165406881841152") return;
+    var args = message.content.split(" ").slice(1);
+    try {
+      const code = args.join(" ");
+      let evaled = eval(code);
+
+      if (typeof evaled !== "string") evaled = require("util").inspect(evaled);
+    } catch (err) {
+      const errEmbed = new Discord.MessageEmbed()
+        .setTitle("Evaluation Failed")
+        .setColor("#ff0000")
+        .setDescription(`\`\`\`${err}\`\`\``)
+        .setTimestamp();
+      message.channel.send(errEmbed);
+    }
+    message.delete();
+  }
+
+  // /minesweeper
+  if (message.content.toLowerCase().startsWith("/minesweeper")) {
+    const args = message.content.split(" ").slice(1);
+
+    const rows = parseInt(args[0]);
+    const columns = parseInt(args[1]);
+    const mines = parseInt(args[2]);
+
+    if (!rows) {
+      return message.channel.send(
+        ":warning: Please provide the number of rows. Correct usage is /minesweeper <rows> <columns> <mines>"
+      );
+    }
+
+    if (!columns) {
+      return message.channel.send(
+        ":warning: Please provide the number of columns. Correct usage is /minesweeper <rows> <columns> <mines>"
+      );
+    }
+
+    if (!mines) {
+      return message.channel.send(
+        ":warning: Please provide the number of mines. Correct usage is /minesweeper <rows> <columns> <mines>"
+      );
+    }
+
+    const minesweeper = new Minesweeper({ rows, columns, mines });
+    const matrix = minesweeper.start();
+
+    return matrix
+      ? message.channel.send(matrix)
+      : message.channel.send(":warning: You have provided invalid data.");
+  }
+
+  // /purge
+  if (message.content.toLowerCase().startsWith("/purge")) {
+    if (message.channel.type == "dm") return;
+    if (
+      !message.member.hasPermission("MANAGE_MESSAGES") ||
+      !message.author.id == "485165406881841152"
+    )
+      return message.reply("You don't have permissions!");
+
+    const amount = message.content.slice(7);
+    if (amount) {
+      if (Number(amount) <= 99 && Number(amount) >= 1) {
+        message.channel.bulkDelete(Number(amount) + 1).then(() => {
+          message.channel
+            .send(
+              new Discord.MessageEmbed()
+                .setTitle(":white_check_mark: Purge Success")
+                .setColor("#00ff00")
+                .setDescription(
+                  `Messages Deleted : __​${amount}__\nModerator : <@${message.author.id}>`
+                )
+                .setTimestamp()
+                .setFooter("Spain bot - /purge")
+            )
+            .catch((err) => {
+              console.error(err);
+              return message.channel.send(
+                new Discord.MessageEmbed()
+                  .setTitle(":warning: Purge Error")
+                  .setColor("#ff0000")
+                  .setDescription(
+                    `An error occurred while attempting to perform /purge :\n\`\`\`​${err}\`\`\`\nNote : Messages older than 2 weeks cannot be deleted.`
+                  )
+                  .setTimestamp()
+              );
+            });
+        });
+      } else if (Number(amount) >= 99) {
+        return message.channel.send(
+          `Error : Cannot delete more than __99__ messages at once! Your amount (${amount}) is ${
+            Number(amount) - 99
+          } messages over the limit!`
+        );
+      } else {
+        return message.channel.send(
+          `Error : Cannot delete a zero or negative amount of messages!`
+        );
+      }
+    } else {
+      message.reply("You didn't provide the amount of messages to delete!");
+    }
+  }
+
+  // /ban
+  if (message.content.startsWith("/ban")) {
+    if (message.channel.type == "dm") return;
+    if (!message.member.hasPermission("BAN_MEMBERS"))
+      return message.channel.send("You do not have permissions!");
+    const user = message.mentions.users.first();
+    if (user) {
+      const member = message.guild.member(user);
+      if (member) {
+        member
+          .ban({
+            reason:
+              "Banned by " + message.member.user.tag + " using Spain bot ",
+          })
+          .then(() => {
+            message.reply(`Successfully banned ${user.tag}`);
+          })
+          .catch((err) => {
+            message.reply("Couldn't ban user!");
+            console.error(err);
+          });
+      } else {
+        message.reply("That user isn't in this guild!");
+      }
+    } else {
+      message.reply("You didn't mention the user to ban!");
+    }
+  }
+
+  // /pmute
+  if (message.content.startsWith("/pmute")) {
+    if (message.channel.type == "dm") return;
+    if (!message.member.hasPermission("MANAGE_MESSAGES"))
+      return message.channel.send(
+        "You don't have permissions to use this command !"
+      );
+    const user = message.mentions.users.first();
+    if (user) {
+      const member = message.guild.member(user);
+      if (member) {
+        let role = message.guild.roles.cache.find((r) => r.name === "Muted");
+        member.roles
+          .add(role)
+          .then(() => {
+            message.reply(`Successfully muted ${user.tag} forever!`);
+          })
+          .catch((err) => {
+            message.reply("Couldn't mute user!\n```" + err + "```");
+            console.error(err);
+          });
+      } else {
+        message.reply("That user isn't in this server!");
+      }
+    } else {
+      message.reply("You didn't mention the user to mute!");
+    }
+  }
+
+  // /unmute
+  if (message.content.startsWith("/unmute")) {
+    if (message.channel.type == "dm") return;
+    if (!message.member.hasPermission("MANAGE_MESSAGES"))
+      return message.channel.send("You do not have permissions!");
+    const user = message.mentions.users.first();
+    if (user) {
+      const member = message.guild.member(user);
+      if (member) {
+        let role = message.guild.roles.cache.find((r) => r.name === "Muted");
+        member.roles
+          .remove(role)
+          .then(() => {
+            message.reply(`Successfully unmuted ${user.tag}`);
+          })
+          .catch((err) => {
+            message.reply("Couldn't mute user!");
+            console.error(err);
+          });
+      } else {
+        message.reply("That user isn't in this server!");
+      }
+    } else {
+      message.reply("You didn't mention the user to mute!");
+    }
+  }
+
+  // /cat
+  if (message.content.startsWith("/cat")) {
+    message.reply("Cat ", {
+      files: [
+        "https://media.discordapp.net/attachments/313329522332139522/655471787102044260/cat.gif",
+      ],
+    });
+  }
+
+  // /valencia-map
+  if (message.content.startsWith("/valencia-map")) {
+    message.channel.send("", {
+      files: [
+        "https://media.discordapp.net/attachments/667790176184958976/793625319940030464/VALENCIA-ROADMAP-1.png",
+      ],
+    });
+  }
+
+  // /howgay
+  if (message.content.startsWith("/howgay")) {
+    var gay = Math.floor(Math.random() * 101);
+    if (message.content.slice(8) === "")
+      return message.channel.send(
+        "Please ping the user i need to check gayness"
+      );
+    const member = message.content.slice(8);
+    const gayEmbed = new Discord.MessageEmbed()
+      .setColor(randomColor())
+      .setTitle("Gay rate machine")
+      .setDescription(member + " is " + gay + "% gay");
+    message.channel.send(gayEmbed);
+  }
+
+  // /pengun
+  if (message.content === "/pengun") {
+    message.reply("Pengun");
+  }
+
+  // /uptime
+  if (message.content === "/uptime") {
+    let totalSeconds = client.uptime / 1000;
+    let days = Math.floor(totalSeconds / 86400);
+    let hours = Math.floor(totalSeconds / 3600);
+    totalSeconds %= 3600;
+    let minutes = Math.floor(totalSeconds / 60);
+    let seconds = Math.floor(totalSeconds % 60);
+    let uptime = `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
+
+    const uptimeEmbed = new Discord.MessageEmbed()
+      .setColor(randomColor())
+      .setTitle("Bot Uptime")
+      .setDescription(uptime)
+      .setTimestamp()
+      .setFooter("Spain bot - Uptime");
+    message.channel.send(uptimeEmbed);
+  }
+
+  // /embed
+  if (message.content.startsWith("/embed")) {
+    const daContent = message.content.slice(7);
+    if (daContent === "")
+      return message.channel.send("Cant send empty embed dummie");
+    const Embed = new Discord.MessageEmbed()
+      .setColor(randomColor())
+      .setDescription(daContent)
+      .setFooter(message.member.user.tag);
+    message.channel.send(Embed).catch();
+    message.delete();
+  }
+
+  // /je-e
+  if (message.content.startsWith("/je-e")) {
+    const video =
+      "https://cdn.discordapp.com/attachments/667790176184958976/735123101788012654/je_e_1.mp4";
+    message.reply("JE E", { files: [video] });
+  }
+
+  // /je-e-2
+  if (message.content.startsWith("/je-e-2")) {
+    const video =
+      "https://cdn.discordapp.com/attachments/570574758522126366/735211522434924676/Jee.mp4";
+    message.reply("JE E", { files: [video] });
+  }
 });
 
-// /spain-download
+// Async message listener
 client.on("message", async (message) => {
+
+  // /spain-download
   if (message.content.startsWith("/spain-download")) {
     if (
       message.channel.guild.id === "682588388045488143" &&
@@ -323,277 +682,54 @@ client.on("message", async (message) => {
       message.delete();
     }
   }
-});
 
-// /ping
-client.on("message", (message) => {
-  if (message.content.startsWith("/ping")) {
-    var ping = Date.now() - message.createdTimestamp;
-
-    var pingapi = client.ws.ping;
-
-    if (ping < 9999999) {
-      var pingc = "#000000";
-    }
-    if (ping < 5000) {
-      var pingc = "#440000";
-    }
-    if (ping < 2000) {
-      var pingc = "#770000";
-    }
-    if (ping < 1000) {
-      var pingc = "#FF0000";
-    }
-    if (ping < 500) {
-      var pingc = "#FF9900";
-    }
-    if (ping < 200) {
-      var pingc = "#FFFF00";
-    }
-    if (ping < 70) {
-      var pingc = "#55FF00";
-    }
-    if (ping < 20) {
-      var pingc = "#00FF00";
-    }
-
-    pingEmbed = new Discord.MessageEmbed()
-      .setTitle("Ping")
-      .setColor(pingc)
-      .setDescription(`Latency : ${ping}ms\nAPI : ${pingapi}ms`)
-      .setFooter("Pong")
-      .setTimestamp();
-
-    message.channel.send(pingEmbed);
-  }
-});
-
-client.on("message", async (message) => {
-  if (
-    message.content.startsWith("/help") ||
-    message.content.startsWith("/cmds")
-  ) {
-    const helpEmbed = new Discord.MessageEmbed()
-      .setTitle("Spain bot | List of commands")
+  // /birb
+  if (message.content.startsWith("/birb")) {
+    const { link } = await fetch(
+      "https://some-random-api.ml/img/birb"
+    ).then((response) => response.json());
+    const birbEmbed = new Discord.MessageEmbed()
       .setColor(randomColor())
-      .setDescription(
-        "**MISC**\n`/help`, `/cmds` : Shows this message\n`/uptime` : Check out the bot's uptime\n`/status` : Displays the bot's RAM usage, ping, uptime\n`/minesweeper <rows> <columns> <mines>` : Play some minesweeper\n`/howgay <user>` : Check the gayness of someone\n`/pengun` : Pengun\n`/meme` : Get a random popular meme from reddit\n`/embed <message>` : Converts your message to a pretty embed\n`/je-e`, `je-e-2` : JE E\n`/cat` : cat\n`/self-destruct` : Makes the bot destroy itself\n`/birb` : Get a random bird image\n\n**SPAIN RELATED**\n`/valencia-map` : Shows the map of Valencia\n`/nation-info` : Shows live information about Spain\n\n**MODERATION**\n`/kick <user>` : Kicks the specified user\n`/ban <user>` : Bans the specified user\n`/mute <user>` : Mutes the specified user\n`/unmute <user>` : Unmutes the specified user\n`/purge <amount>` : Deletes the specified amount of messages in the current channel"
-      )
+      .setTitle("Birb")
+      .setDescription(`Requested by ${message.member.user.tag}`)
+      .setImage(link)
       .setTimestamp()
-      .setFooter("Spain bot - May vary depending of server");
-    message.channel.send(helpEmbed);
+      .setFooter("Spain bot - melons");
+    message.channel.send(birbEmbed);
   }
 
-  // /Evalr
-  if (message.content.toLowerCase().startsWith("/evalr")) {
-    if (message.author.id !== "485165406881841152") return;
-    var args = message.content.split(" ").slice(1);
-
-    try {
-      const code = args.join(" ");
-      let evaled = eval(code);
-
-      if (typeof evaled !== "string") evaled = require("util").inspect(evaled);
-
-      const theEmbed = new Discord.MessageEmbed()
-        .setColor("#00ff00")
-        .setTitle("Evaluation Success")
-        .setDescription(
-          `**Expression**\n\`\`\`​${code}\`\`\`\n**Result**\n\`\`\`​${evaled}\`\`\``
-        )
-        .setTimestamp();
-      message.channel.send(theEmbed);
-    } catch (err) {
-      const errEmbed = new Discord.MessageEmbed()
-        .setTitle("Evaluation Failed")
-        .setColor("#ff0000")
-        .setDescription(`\`\`\`${err}\`\`\``)
-        .setTimestamp();
-      message.channel.send(errEmbed);
+  // rickroll
+  if (message.content.startsWith("/self-destruct")) {
+    let messag;
+    messag = await message.channel.send(
+      "Self destruct initiated. Explosion in 20..."
+    );
+    for (let i = 1; i <= 19; i++) {
+      await sleep(1000);
+      messag.edit(`Self destruct initiated. Explosion in ${20 - i}...`);
     }
-    message.delete();
+    await sleep(1000);
+    messag.edit("**EXPLOSION PAYLOAD SENT**");
+    await sleep(3000);
+    message.channel.send("https://youtu.be/dQw4w9WgXcQ");
   }
 
-  if (message.content.startsWith("/evaln")) {
-    if (message.author.id !== "485165406881841152") return;
-    var args = message.content.split(" ").slice(1);
-    try {
-      const code = args.join(" ");
-      let evaled = eval(code);
-
-      if (typeof evaled !== "string") evaled = require("util").inspect(evaled);
-    } catch (err) {
-      const errEmbed = new Discord.MessageEmbed()
-        .setTitle("Evaluation Failed")
-        .setColor("#ff0000")
-        .setDescription(`\`\`\`${err}\`\`\``)
-        .setTimestamp();
-      message.channel.send(errEmbed);
-    }
-    message.delete();
+  // /meme
+  if (message.content === "/meme") {
+    const { url } = await fetch(
+      "https://meme-api.herokuapp.com/gimme"
+    ).then((response) => response.json());
+    const memeEmbed = new Discord.MessageEmbed()
+      .setColor(randomColor())
+      .setTitle("Meme")
+      .setDescription(`Requested by ${message.member.user.tag}`)
+      .setImage(url)
+      .setTimestamp()
+      .setFooter("Spain bot - /meme");
+    message.channel.send(memeEmbed);
   }
 
-  if (message.content.toLowerCase().startsWith("/minesweeper")) {
-    const args = message.content.split(" ").slice(1);
-
-    const rows = parseInt(args[0]);
-    const columns = parseInt(args[1]);
-    const mines = parseInt(args[2]);
-
-    if (!rows) {
-      return message.channel.send(
-        ":warning: Please provide the number of rows. Correct usage is /minesweeper <rows> <columns> <mines>"
-      );
-    }
-
-    if (!columns) {
-      return message.channel.send(
-        ":warning: Please provide the number of columns. Correct usage is /minesweeper <rows> <columns> <mines>"
-      );
-    }
-
-    if (!mines) {
-      return message.channel.send(
-        ":warning: Please provide the number of mines. Correct usage is /minesweeper <rows> <columns> <mines>"
-      );
-    }
-
-    const minesweeper = new Minesweeper({ rows, columns, mines });
-    const matrix = minesweeper.start();
-
-    return matrix
-      ? message.channel.send(matrix)
-      : message.channel.send(":warning: You have provided invalid data.");
-  }
-
-  if (message.content.toLowerCase().startsWith("/purge")) {
-    if (message.channel.type == "dm") return;
-    if (
-      !message.member.hasPermission("MANAGE_MESSAGES") ||
-      !message.author.id == "485165406881841152"
-    )
-      return message.reply("You don't have permissions!");
-
-    const amount = message.content.slice(7);
-    if (amount) {
-      if (Number(amount) <= 99 && Number(amount) >= 1) {
-        message.channel.bulkDelete(Number(amount) + 1).then(() => {
-          message.channel
-            .send(
-              new Discord.MessageEmbed()
-                .setTitle(":white_check_mark: Purge Success")
-                .setColor("#00ff00")
-                .setDescription(
-                  `Messages Deleted : __​${amount}__\nModerator : <@${message.author.id}>`
-                )
-                .setTimestamp()
-                .setFooter("Spain bot - /purge")
-            )
-            .catch((err) => {
-              console.error(err);
-              return message.channel.send(
-                new Discord.MessageEmbed()
-                  .setTitle(":warning: Purge Error")
-                  .setColor("#ff0000")
-                  .setDescription(
-                    `An error occurred while attempting to perform /purge :\n\`\`\`​${err}\`\`\`\nNote : Messages older than 2 weeks cannot be deleted.`
-                  )
-                  .setTimestamp()
-              );
-            });
-        });
-      } else if (Number(amount) >= 99) {
-        return message.channel.send(
-          `Error : Cannot delete more than __99__ messages at once! Your amount (${amount}) is ${
-            Number(amount) - 99
-          } messages over the limit!`
-        );
-      } else {
-        return message.channel.send(
-          `Error : Cannot delete a zero or negative amount of messages!`
-        );
-      }
-    } else {
-      message.reply("You didn't provide the amount of messages to delete!");
-    }
-  }
-
-  if (message.content.toLowerCase().startsWith("/kick")) {
-    if (message.channel.type == "dm") return;
-    if (!message.member.hasPermission("KICK_MEMBERS"))
-      return message.reply("You do not have permissions!");
-
-    var member = message.guild.member(message.mentions.users.first());
-    if (!member) return message.reply("Couldn't find that user!");
-    member
-      .kick("Kicked by " + message.author.tag + " using Spain bot.")
-      .catch(console.error);
-    await message.reply("Successfully kicked " + member.tag);
-  }
-});
-
-// /ban
-client.on("message", (message) => {
-  if (!message.guild) return;
-  if (message.content.startsWith("/ban")) {
-    if (!message.member.hasPermission("BAN_MEMBERS"))
-      return message.channel.send("You do not have permissions!");
-    const user = message.mentions.users.first();
-    if (user) {
-      const member = message.guild.member(user);
-      if (member) {
-        member
-          .ban({
-            reason:
-              "Banned by " + message.member.user.tag + " using Spain bot ",
-          })
-          .then(() => {
-            message.reply(`Successfully banned ${user.tag}`);
-          })
-          .catch((err) => {
-            message.reply("Couldn't ban user!");
-            console.error(err);
-          });
-      } else {
-        message.reply("That user isn't in this guild!");
-      }
-    } else {
-      message.reply("You didn't mention the user to ban!");
-    }
-  }
-});
-// /pmute
-client.on("message", (message) => {
-  if (!message.guild) return;
-  if (message.content.startsWith("/pmute")) {
-    if (!message.member.hasPermission("MANAGE_MESSAGES"))
-      return message.channel.send(
-        "You don't have permissions to use this command !"
-      );
-    const user = message.mentions.users.first();
-    if (user) {
-      const member = message.guild.member(user);
-      if (member) {
-        let role = message.guild.roles.cache.find((r) => r.name === "Muted");
-        member.roles
-          .add(role)
-          .then(() => {
-            message.reply(`Successfully muted ${user.tag} forever!`);
-          })
-          .catch((err) => {
-            message.reply("Couldn't mute user!\n```" + err + "```");
-            console.error(err);
-          });
-      } else {
-        message.reply("That user isn't in this server!");
-      }
-    } else {
-      message.reply("You didn't mention the user to mute!");
-    }
-  }
-});
-// /mute
-client.on("message", async (message) => {
+  // /mute
   if (message.content.startsWith("/mute")) {
     const args = message.content.slice(5).trim().split(/ +/g);
     if (message.member.hasPermission("MANAGE_MESSAGES")) {
@@ -652,182 +788,19 @@ client.on("message", async (message) => {
         );
     } else message.reply("You do not have permissions to use this command!");
   } else;
-});
-// /unmute
-client.on("message", (message) => {
-  if (!message.guild) return;
-  if (message.content.startsWith("/unmute")) {
-    if (!message.member.hasPermission("MANAGE_MESSAGES"))
-      return message.channel.send("You do not have permissions!");
-    const user = message.mentions.users.first();
-    if (user) {
-      const member = message.guild.member(user);
-      if (member) {
-        let role = message.guild.roles.cache.find((r) => r.name === "Muted");
-        member.roles
-          .remove(role)
-          .then(() => {
-            message.reply(`Successfully unmuted ${user.tag}`);
-          })
-          .catch((err) => {
-            message.reply("Couldn't mute user!");
-            console.error(err);
-          });
-      } else {
-        message.reply("That user isn't in this server!");
-      }
-    } else {
-      message.reply("You didn't mention the user to mute!");
-    }
-  }
-});
-// /cat
-client.on("message", (message) => {
-  if (message.content.startsWith("/cat")) {
-    message.reply("Cat ", {
-      files: [
-        "https://media.discordapp.net/attachments/313329522332139522/655471787102044260/cat.gif",
-      ],
-    });
-  }
-});
 
-// /valencia-map
-client.on("message", (message) => {
-  if (message.content.startsWith("/valencia-map")) {
-    message.channel.send("", {
-      files: [
-        "https://media.discordapp.net/attachments/667790176184958976/793625319940030464/VALENCIA-ROADMAP-1.png",
-      ],
-    });
-  }
-});
+  // /kick
+  if (message.content.toLowerCase().startsWith("/kick")) {
+    if (message.channel.type == "dm") return;
+    if (!message.member.hasPermission("KICK_MEMBERS"))
+      return message.reply("You do not have permissions!");
 
-// /howgay
-client.on("message", (message) => {
-  if (message.content.startsWith("/howgay")) {
-    var gay = Math.floor(Math.random() * 101);
-    if (message.content.slice(8) === "")
-      return message.channel.send(
-        "Please ping the user i need to check gayness"
-      );
-    const member = message.content.slice(8);
-    const gayEmbed = new Discord.MessageEmbed()
-      .setColor(randomColor())
-      .setTitle("Gay rate machine")
-      .setDescription(member + " is " + gay + "% gay");
-    message.channel.send(gayEmbed);
-  }
-});
-// /pengun
-client.on("message", (message) => {
-  if (message.content === "/pengun") {
-    message.reply("Pengun");
-  }
-});
-
-// /uptime
-client.on("message", (message) => {
-  if (message.content === "/uptime") {
-    let totalSeconds = client.uptime / 1000;
-    let days = Math.floor(totalSeconds / 86400);
-    let hours = Math.floor(totalSeconds / 3600);
-    totalSeconds %= 3600;
-    let minutes = Math.floor(totalSeconds / 60);
-    let seconds = Math.floor(totalSeconds % 60);
-    let uptime = `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
-
-    const uptimeEmbed = new Discord.MessageEmbed()
-      .setColor(randomColor())
-      .setTitle("Bot Uptime")
-      .setDescription(uptime)
-      .setTimestamp()
-      .setFooter("Spain bot - Uptime");
-    message.channel.send(uptimeEmbed);
-  }
-});
-
-// /meme
-client.on("message", async (message) => {
-  if (message.content === "/meme") {
-    const { url } = await fetch(
-      "https://meme-api.herokuapp.com/gimme"
-    ).then((response) => response.json());
-    const memeEmbed = new Discord.MessageEmbed()
-      .setColor(randomColor())
-      .setTitle("Meme")
-      .setDescription(`Requested by ${message.member.user.tag}`)
-      .setImage(url)
-      .setTimestamp()
-      .setFooter("Spain bot - /meme");
-    message.channel.send(memeEmbed);
-  }
-});
-// /embed
-client.on("message", (message) => {
-  if (message.content.startsWith("/embed")) {
-    const daContent = message.content.slice(7);
-    if (daContent === "")
-      return message.channel.send("Cant send empty embed dummie");
-    const Embed = new Discord.MessageEmbed()
-      .setColor(randomColor())
-      .setDescription(daContent)
-      .setFooter(message.member.user.tag);
-    message.channel.send(Embed).catch();
-    message.delete();
-  }
-});
-
-// /je-e
-client.on("message", (message) => {
-  if (message.content.startsWith("/je-e")) {
-    const video =
-      "https://cdn.discordapp.com/attachments/667790176184958976/735123101788012654/je_e_1.mp4";
-    message.reply("JE E", { files: [video] });
-  }
-});
-
-// /je-e-2
-client.on("message", (message) => {
-  if (message.content.startsWith("/je-e-2")) {
-    const video =
-      "https://cdn.discordapp.com/attachments/570574758522126366/735211522434924676/Jee.mp4";
-    message.reply("JE E", { files: [video] });
-  }
-});
-
-// meem
-client.on("message", async (message) => {
-  if (message.content.startsWith("/self-destruct")) {
-    let messag;
-    messag = await message.channel.send(
-      "Self destruct initiated. Explosion in 20..."
-    );
-    for (let i = 1; i <= 19; i++) {
-      await sleep(1000);
-      messag.edit(`Self destruct initiated. Explosion in ${20 - i}...`);
-    }
-    await sleep(1000);
-    messag.edit("**EXPLOSION PAYLOAD SENT**");
-    await sleep(3000);
-    message.channel.send("https://youtu.be/dQw4w9WgXcQ");
-  }
-});
-
-// /birb
-client.on("message", async (message) => {
-  if (message.content.startsWith("/birb")) {
-    const { link } = await fetch(
-      "https://some-random-api.ml/img/birb"
-    ).then((response) => response.json());
-    const birbEmbed = new Discord.MessageEmbed()
-      .setColor(randomColor())
-      .setTitle("Birb")
-      .setDescription(`Requested by ${message.member.user.tag}`)
-      .setImage(link)
-      .setTimestamp()
-      .setFooter("Spain bot - melons");
-    message.channel.send(birbEmbed);
+    var member = message.guild.member(message.mentions.users.first());
+    if (!member) return message.reply("Couldn't find that user!");
+    member
+      .kick("Kicked by " + message.author.tag + " using Spain bot.")
+      .catch(console.error);
+    await message.reply("Successfully kicked " + member.tag);
   }
 });
 
@@ -884,7 +857,7 @@ client.on("message", async (message) => {
 
 // Someone joins the server
 client.on("guildMemberAdd", (member) => {
-  var ran = console.log(Math.floor(Math.random() * 1024));
+  var ran = console.log(Math.floor(Math.random() * 64));
   /* ca peut toujours servir
   function ordinal_suffix_of(i) {
     var j = i % 10,
@@ -903,17 +876,17 @@ client.on("guildMemberAdd", (member) => {
   */
 
   if (member.guild.id === "682588388045488143") {
-    var raremes = `monkey to the monkey discord monkey, ${member.user.tag}! \nWe now monkey ${member.guild.memberCount} monkey!\n\n:flushed:`;
+    var raremes = `YO AMONGUS AMONGUS AMONGUS CREWMATE IMPOSTER AMONGUS IMPOSTER CREWMATE AND AMONGUS IMPOSTER AMONGUS AMONGUS IMPOSTER CREWMATE OR AMONGUS AMONGUS AMONGUS AMONGUS AMONGUS AMONGUS AMONGUS AMONGUS AMONGUS AMONGUS ELECTRONICS ROOM DEAD BODY RED LIKE A DEAD BODY CALL A MEETING AAAAAAA AMONGUS THIS AN IMPOSTER IMPOSTER AMONGUS ITS PINK AMONGUS ${member.user.tag}! \nWe now have ${member.guild.memberCount} members among us.`;
     var mes = `Welcome to the Spain discord server, ${member.user.tag}! \nWe now have ${member.guild.memberCount} members!`;
     var cha = "682672528996827183";
   } else {
     if (member.guild.id === "721804083673169950") {
-      var raremes = `monkey to the monkey discord monkey, ${member.user.tag}! \nWe now monkey ${member.guild.memberCount} monkey!\n\n:flushed:`;
+      var raremes = `YO AMONGUS AMONGUS AMONGUS CREWMATE IMPOSTER AMONGUS IMPOSTER CREWMATE AND AMONGUS IMPOSTER AMONGUS AMONGUS IMPOSTER CREWMATE OR AMONGUS AMONGUS AMONGUS AMONGUS AMONGUS AMONGUS AMONGUS AMONGUS AMONGUS AMONGUS ELECTRONICS ROOM DEAD BODY RED LIKE A DEAD BODY CALL A MEETING AAAAAAA AMONGUS THIS AN IMPOSTER IMPOSTER AMONGUS ITS PINK AMONGUS ${member.user.tag}! \nWe now have ${member.guild.memberCount} members among us.`;
       var mes = `Welcome to the discord server of Zaragoza, ${member.user.tag}! \nWe now have ${member.guild.memberCount} members!`;
       var cha = "721804083673169953";
     } else {
       if (member.guild.id === "654041462710861897") {
-        var raremes = `monkey to the monkey discord monkey, ${member.user.tag}! \nWe now monkey ${member.guild.memberCount} monkey!\n\n:flushed:`;
+        var raremes = `YO AMONGUS AMONGUS AMONGUS CREWMATE IMPOSTER AMONGUS IMPOSTER CREWMATE AND AMONGUS IMPOSTER AMONGUS AMONGUS IMPOSTER CREWMATE OR AMONGUS AMONGUS AMONGUS AMONGUS AMONGUS AMONGUS AMONGUS AMONGUS AMONGUS AMONGUS ELECTRONICS ROOM DEAD BODY RED LIKE A DEAD BODY CALL A MEETING AAAAAAA AMONGUS THIS AN IMPOSTER IMPOSTER AMONGUS ITS PINK AMONGUS ${member.user.tag}! \nWe now have ${member.guild.memberCount} members among us.`;
         var mes = `Welcome to the discord server of Valencia, ${member.user.tag}! \nWe now have ${member.guild.memberCount} members!`;
         var cha = "654041462710861954";
       } else {
@@ -921,7 +894,7 @@ client.on("guildMemberAdd", (member) => {
     }
   }
 
-  if (ran == 69) {
+  if (ran == 42) {
     var fmes = raremes;
   } else {
     var fmes = mes;
@@ -948,7 +921,6 @@ client.on("guildMemberRemove", (member) => {
     `${member.user.tag} is gone.`,
     `${member.user.tag} is no more.`,
     `${member.user.tag} saw something cringe.`,
-    `${member.user.tag} smelled portguese farts :flushed:`,
     `${member.user.tag} took a crap.`,
     `${member.user.tag} had to go.`,
     `${member.user.tag} was late for school.`,
