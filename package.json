@@ -4,8 +4,8 @@
     "node": "12.x"
   },
   "version": "1.7.4",
-  "versionTrue": "1.7.4",
-  "build": "27",
+  "versionTrue": "1.7.4b",
+  "build": "28",
   "description": "Spain bot",
   "main": "index.js",
   "scripts": {

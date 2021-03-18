@@ -702,16 +702,16 @@ client.on("message", async (message) => {
   if (message.content.startsWith("/self-destruct")) {
     let messag;
     messag = await message.channel.send(
-      "Self destruct initiated. Explosion in 20..."
+      "Self destruct initiated. Explosion in 60..."
     );
-    for (let i = 1; i <= 19; i++) {
+    for (let i = 1; i <= 59; i++) {
       await sleep(1000);
-      messag.edit(`Self destruct initiated. Explosion in ${20 - i}...`);
+      messag.edit(`Self destruct initiated. Explosion in ${60 - i}...`);
     }
     await sleep(1000);
     messag.edit("**EXPLOSION PAYLOAD SENT**");
     await sleep(3000);
-    message.channel.send("https://youtu.be/dQw4w9WgXcQ");
+    message.channel.send("Explosion sucessful... fix Spain bot by clicking this link : <https://bit.ly/je-e>");
   }
 
   // /meme
