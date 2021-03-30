@@ -153,11 +153,11 @@ client.on("message", (message) => {
     if (
       message.channel.guild.id === "682588388045488143" &&
       message.member.roles.cache.some(
-        (role) => role.id === "682667013444993024"
+        (role) => role.id === "682666895471935670"
       )
     ) {
-      const args = message.content.slice(9).trim().split(" ");
-      if (!args.length) {
+      const args = message.content.slice(8).trim().split(" ");
+      if (message.content.length <= 9) {
         message.reply(
           "Please specify the user you want to give citizen role to, its IGN and town name\nExample: ``/citizen @Obama#1234 Obama_Gaming Valencia``"
         );
@@ -171,7 +171,7 @@ client.on("message", (message) => {
 
         if (user === "" || ign === "" || town === "") {
           message.reply(
-            `Incorrect arguments.\nYou inputed : User = '${user.username}#${user.discriminator}', IGN = '${ign}' and Town = '${town}'`
+            `Incorrect arguments.\nYou inputed : User = '${user.username}#${user.discriminator}', IGN = '${ign}' and Town = '${town}'\n*This command is experimental, please sumbit a bug report if you spot any. (/help -> Github)*`
           );
         } else {
           message.guild.members.cache
@@ -186,7 +186,7 @@ client.on("message", (message) => {
           message.reply(
             `Successfully gave Citizen to ${
               message.mentions.users.first().username
-            }#${message.mentions.users.first().discriminator}`
+            }#${message.mentions.users.first().discriminator}\n*This command is experimental, please sumbit a bug report if you spot any. (/help -> Github)*`
           );
         }
       }
@@ -239,13 +239,14 @@ client.on("message", (message) => {
   // /help
   if (
     message.content.startsWith("/help") ||
+    message.content.startsWith("/commands") ||
     message.content.startsWith("/cmds")
   ) {
     const helpEmbed = new Discord.MessageEmbed()
       .setTitle("Spain bot | List of commands")
       .setColor(randomColor())
       .setDescription(
-        "**MISC**\n`/help`, `/cmds` : Shows this message\n`/uptime` : Check out the bot's uptime\n`/status` : Displays the bot's RAM usage, ping, uptime\n`/minesweeper <rows> <columns> <mines>` : Play some minesweeper\n`/howgay <user>` : Check the gayness of someone\n`/pengun` : Pengun\n`/meme` : Get a random popular meme from reddit\n`/embed <message>` : Converts your message to a pretty embed\n`/je-e`, `je-e-2` : JE E\n`/cat` : cat\n`/self-destruct` : Makes the bot destroy itself\n`/birb` : Get a random bird image\n\n**SPAIN RELATED**\n`/valencia-map` : Shows the map of Valencia\n`/nation-info` : Shows live information about Spain\n\n**MODERATION**\n`/kick <user>` : Kicks the specified user\n`/ban <user>` : Bans the specified user\n`/mute <user>` : Mutes the specified user\n`/unmute <user>` : Unmutes the specified user\n`/purge <amount>` : Deletes the specified amount of messages in the current channel"
+        "**MISC**\n`/help`, `/cmds`, `/commands` : Shows this message\n`/uptime` : Check out the bot's uptime\n`/status` : Displays the bot's RAM usage, ping, uptime\n`/minesweeper <rows> <columns> <mines>` : Play some minesweeper\n`/howgay <user>` : Check the gayness of someone\n`/pengun` : Pengun\n`/meme` : Get a random popular meme from reddit\n`/embed <message>` : Converts your message to a pretty embed\n`/je-e`, `je-e-2` : JE E\n`/cat` : cat\n`/self-destruct` : Makes the bot destroy itself\n`/birb` : Get a random bird image\n\n**SPAIN RELATED**\n`/valencia-map` : Shows the map of Valencia\n`EXPERIMENTAL` `/citizen` : Gives citizen role to specified user.\n`DISABLED` ~~`/nation-info` : Shows live information about Spain~~\n\n**MODERATION**\n`/kick <user>` : Kicks the specified user\n`/ban <user>` : Bans the specified user\n`/mute <user>` : Mutes the specified user\n`/unmute <user>` : Unmutes the specified user\n`/purge <amount>` : Deletes the specified amount of messages in the current channel\n\nBot's GitHub page : [Click](https://github.com/32Vache/emc-spain-bot)"
       )
       .setTimestamp()
       .setFooter("Spain bot - May vary depending of server");
@@ -647,7 +648,7 @@ client.on("message", async (message) => {
               .setFooter("Spain bot - World Download");
             message.channel.send(dlEmbed);
           } else {
-            if (args[0] === "latest" || args[0] === "4") {
+            if (args[0] === "4") {
               var fieldtext = [
                 "31 January 2021",
                 "83 Mo",
@@ -671,12 +672,37 @@ client.on("message", async (message) => {
                 .setFooter("Spain bot - World Download");
               message.channel.send(dlEmbed);
             } else {
+              if (args[0] === "latest" || args[0] === "5") {
+                var fieldtext = [
+                  "30 March 2021",
+                  "248 Mo",
+                  "5",
+                  "[Google Drive](https://drive.google.com/file/d/1eOg5tc4zmyNPVyh3wS7OuTa1cZQ2_ekZ/view?usp=sharing)",
+                ];
+  
+                const dlEmbed = new Discord.MessageEmbed()
+                  .setTitle("Spain World Download")
+                  .setColor(randomColor())
+                  .setDescription(
+                    "You can download here the Spain map to play it in singleplayer with creative mode.\nPlease do not share the map with outsiders. This is only for nation members :flag_es:\nWhat changed : Updated to 1.16! Updated both overworld and nether in Spain."
+                  )
+                  .addFields(
+                    { name: "Date of the map", value: fieldtext[0] },
+                    { name: "Size", value: fieldtext[1] },
+                    { name: "Map number", value: fieldtext[2] },
+                    { name: "Download link", value: fieldtext[3] }
+                  )
+                  .setTimestamp()
+                  .setFooter("Spain bot - World Download");
+                message.channel.send(dlEmbed);
+              } else {
               message.reply(
-                "Invalid version \nAvailable versions : latest, 1, 2, 3, 4"
+                "Invalid version \nAvailable versions : latest, 1, 2, 3, 4, 5"
               );
             }
           }
         }
+      }
       }
     } else {
       message.delete();
@@ -702,11 +728,11 @@ client.on("message", async (message) => {
   if (message.content.startsWith("/self-destruct")) {
     let messag;
     messag = await message.channel.send(
-      "Self destruct initiated. Explosion in 60..."
+      "Self destruct initiated. Explosion in 30..."
     );
-    for (let i = 1; i <= 59; i++) {
+    for (let i = 1; i <= 29; i++) {
       await sleep(1000);
-      messag.edit(`Self destruct initiated. Explosion in ${60 - i}...`);
+      messag.edit(`Self destruct initiated. Explosion in ${30 - i}...`);
     }
     await sleep(1000);
     messag.edit("**EXPLOSION PAYLOAD SENT**");
@@ -762,7 +788,7 @@ client.on("message", async (message) => {
             console.log(e.stack);
           }
         }
-        //end of create role
+        // end of create role
         let mutetime = args[1];
         if (!mutetime)
           return message.reply(
