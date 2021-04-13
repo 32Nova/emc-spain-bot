@@ -2,11 +2,11 @@ EMC SPAIN BOT
 ======
 ![Commits](https://img.shields.io/github/commit-activity/m/32Vache/emc-spain-bot)
 ![Code size](https://img.shields.io/github/repo-size/32Vache/emc-spain-bot)
-![Version](https://img.shields.io/badge/version-1.7.5-brightgreen)
-![Build](https://img.shields.io/badge/build-29-yellow)
+![Version](https://img.shields.io/badge/version-1.7.5-red)
+![Build](https://img.shields.io/badge/build-29-red)
 
 A simple bot made for the nation of Spain on EarthMC.
 
-Report bugs on the "Issues" tab.
+DISCONTINUED
 
-If you want to help out feel free to make a Pull Request. The bot runs the latest version of discord.js.
+Spain bot is no longer maintained online nor will recieve updates. Feel free to fork if you want to host yourself.
