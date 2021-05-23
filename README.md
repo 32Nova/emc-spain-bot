@@ -8,3 +8,5 @@ EMC SPAIN BOT
 A simple bot made for the nation of Spain on EarthMC.
 
 I'm taking it now.
+
+MY GOD IT'S HARD 
