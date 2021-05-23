@@ -7,6 +7,4 @@ EMC SPAIN BOT
 
 A simple bot made for the nation of Spain on EarthMC.
 
-DISCONTINUED
-
-Spain bot is no longer maintained online nor will recieve updates. Feel free to fork if you want to host yourself.
+I'm taking it now.
